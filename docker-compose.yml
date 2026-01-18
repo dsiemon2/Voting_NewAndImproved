@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # Laravel Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: voting_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - voting_network
+    depends_on:
+      - db
+      - redis
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+
+  # Nginx Web Server - PORT 8100
+  webserver:
+    image: nginx:alpine
+    container_name: voting_webserver
+    restart: unless-stopped
+    ports:
+      - "8100:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - voting_network
+    depends_on:
+      - app
+
+  # MariaDB Database
+  db:
+    image: mariadb:10.4
+    container_name: voting_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: voting_new
+      MYSQL_USER: voting_user
+      MYSQL_PASSWORD: voting_secret
+      MYSQL_ROOT_PASSWORD: root_secret
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3309:3306"
+    networks:
+      - voting_network
+
+  # Redis for Sessions/Cache/Queue
+  redis:
+    image: redis:alpine
+    container_name: voting_redis
+    restart: unless-stopped
+    ports:
+      - "6381:6379"
+    networks:
+      - voting_network
+
+  # Queue Worker
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: voting_queue
+    restart: unless-stopped
+    working_dir: /var/www/html
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - voting_network
+    depends_on:
+      - app
+      - redis
+      - db
+
+  # Node for asset compilation (optional, for development)
+  node:
+    image: node:20-alpine
+    container_name: voting_node
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    command: sh -c "npm install && npm run dev"
+    networks:
+      - voting_network
+    profiles:
+      - dev
+
+networks:
+  voting_network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

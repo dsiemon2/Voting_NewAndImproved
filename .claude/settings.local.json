@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan:*)",
+      "Bash(php artisan view:clear:*)",
+      "Bash(php artisan config:clear:*)",
+      "Bash(php test_lookup.php:*)",
+      "Bash(find:*)",
+      "Bash(timeout 3 tail:*)",
+      "Bash(dir \"C:\\\\Users\\\\dsiem\\\\Downloads\\\\AI Digital Assistants\\\\NaggingWifeAIAPP\")",
+      "WebFetch(domain:localhost)",
+      "Bash(findstr:*)",
+      "Bash(powershell:*)",
+      "Bash(php -l:*)",
+      "Bash(dir \"C:\\\\Users\\\\dsiem\\\\Downloads\\\\AI Digital Assistants\\\\Tutor_AI-Docker\" /B)",
+      "Bash(composer require:*)",
+      "Bash(Get-Content \"C:\\\\xampp\\\\htdocs\\\\Voting_NewAndImproved\\\\storage\\\\logs\\\\laravel.log\" -Tail 50)",
+      "Bash(Select-String -Pattern \"error|exception|AI|openai\" -CaseSensitive:$false)",
+      "Bash(ls:*)",
+      "Bash(dir /b C:xampphtdocsVoting_NewAndImproved*.md)",
+      "Bash(more:*)",
+      "Bash(curl:*)",
+      "Bash(timeout:*)",
+      "Bash(dir /b \"C:\\\\xampp\\\\htdocs\\\\Voting_NewAndImproved\\\\*.md\")",
+      "Bash(test:*)",
+      "Bash(dir:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(docker-compose build:*)",
+      "Bash(netstat:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker network inspect:*)",
+      "Bash(docker-compose down:*)"
+    ]
+  }
+}

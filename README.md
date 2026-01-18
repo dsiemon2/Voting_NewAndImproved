@@ -2,6 +2,8 @@
 
 A modern, flexible voting application built with Laravel 11, featuring dynamic event configuration, configurable voting types, and responsive design.
 
+**Production Domain:** www.votigopro.com
+
 ## Features
 
 - **Dynamic Event Templates**: Create different event types (Food Competition, Photo Contest, General Vote, etc.)

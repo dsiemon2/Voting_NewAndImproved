@@ -169,7 +169,7 @@
 
             <div class="plan-action">
                 @if(!auth()->check())
-                    <a href="{{ route('register') }}" class="btn btn-{{ $plan->cta_style }} btn-block">
+                    <a href="{{ route('register', ['plan' => $plan->code]) }}" class="btn btn-{{ $plan->cta_style }} btn-block">
                         {{ $plan->cta_text }}
                     </a>
                 @elseif($currentPlan && $currentPlan->id === $plan->id)

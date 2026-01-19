@@ -14,21 +14,26 @@ use Stripe\Exception\ApiErrorException;
 class SubscriptionController extends Controller
 {
     protected ?StripeClient $stripe = null;
+    protected bool $stripeInitialized = false;
 
-    public function __construct()
+    /**
+     * Lazy-load Stripe client only when needed
+     */
+    protected function getStripe(): ?StripeClient
     {
-        $this->initializeStripe();
-    }
+        if (!$this->stripeInitialized) {
+            $this->stripeInitialized = true;
 
-    protected function initializeStripe(): void
-    {
-        $gateway = PaymentGateway::where('provider', 'stripe')
-            ->where('is_enabled', true)
-            ->first();
+            $gateway = PaymentGateway::where('provider', 'stripe')
+                ->where('is_enabled', true)
+                ->first();
 
-        if ($gateway && $gateway->secret_key) {
-            $this->stripe = new StripeClient($gateway->secret_key);
+            if ($gateway && $gateway->secret_key) {
+                $this->stripe = new StripeClient($gateway->secret_key);
+            }
         }
+
+        return $this->stripe;
     }
 
     /**
@@ -75,7 +80,7 @@ class SubscriptionController extends Controller
      */
     public function subscribe(Request $request, SubscriptionPlan $plan)
     {
-        if (!$this->stripe) {
+        if (!$this->getStripe()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Payment processing is not configured. Please contact support.',
@@ -133,7 +138,7 @@ class SubscriptionController extends Controller
                 ];
             }
 
-            $session = $this->stripe->checkout->sessions->create($sessionParams);
+            $session = $this->getStripe()->checkout->sessions->create($sessionParams);
 
             return response()->json([
                 'success' => true,
@@ -157,13 +162,13 @@ class SubscriptionController extends Controller
     {
         $sessionId = $request->get('session_id');
 
-        if (!$sessionId || !$this->stripe) {
+        if (!$sessionId || !$this->getStripe()) {
             return redirect()->route('subscription.manage')
                 ->with('error', 'Invalid session or payment not configured.');
         }
 
         try {
-            $session = $this->stripe->checkout->sessions->retrieve($sessionId, [
+            $session = $this->getStripe()->checkout->sessions->retrieve($sessionId, [
                 'expand' => ['subscription', 'customer'],
             ]);
 
@@ -173,7 +178,7 @@ class SubscriptionController extends Controller
             $existingSubscription = $user->activeSubscription();
             if ($existingSubscription && $existingSubscription->stripe_subscription_id) {
                 try {
-                    $this->stripe->subscriptions->cancel($existingSubscription->stripe_subscription_id);
+                    $this->getStripe()->subscriptions->cancel($existingSubscription->stripe_subscription_id);
                 } catch (\Exception $e) {
                     Log::warning('Could not cancel existing subscription: ' . $e->getMessage());
                 }
@@ -231,8 +236,8 @@ class SubscriptionController extends Controller
 
         try {
             // Cancel at period end (user keeps access until current period ends)
-            if ($subscription->stripe_subscription_id && $this->stripe) {
-                $this->stripe->subscriptions->update($subscription->stripe_subscription_id, [
+            if ($subscription->stripe_subscription_id && $this->getStripe()) {
+                $this->getStripe()->subscriptions->update($subscription->stripe_subscription_id, [
                     'cancel_at_period_end' => true,
                 ]);
             }
@@ -276,8 +281,8 @@ class SubscriptionController extends Controller
         }
 
         try {
-            if ($this->stripe) {
-                $this->stripe->subscriptions->update($subscription->stripe_subscription_id, [
+            if ($this->getStripe()) {
+                $this->getStripe()->subscriptions->update($subscription->stripe_subscription_id, [
                     'cancel_at_period_end' => false,
                 ]);
             }
@@ -306,7 +311,7 @@ class SubscriptionController extends Controller
      */
     public function billingPortal(Request $request)
     {
-        if (!$this->stripe) {
+        if (!$this->getStripe()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Payment processing is not configured.',
@@ -324,7 +329,7 @@ class SubscriptionController extends Controller
         }
 
         try {
-            $session = $this->stripe->billingPortal->sessions->create([
+            $session = $this->getStripe()->billingPortal->sessions->create([
                 'customer' => $subscription->stripe_customer_id,
                 'return_url' => route('subscription.manage'),
             ]);
@@ -439,7 +444,7 @@ class SubscriptionController extends Controller
         }
 
         // Create new customer
-        $customer = $this->stripe->customers->create([
+        $customer = $this->getStripe()->customers->create([
             'email' => $user->email,
             'name' => $user->full_name,
             'metadata' => [

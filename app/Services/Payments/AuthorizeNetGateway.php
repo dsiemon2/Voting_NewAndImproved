@@ -573,4 +573,172 @@ class AuthorizeNetGateway implements PaymentGatewayInterface
                 : 'https://js.authorize.net/v1/Accept.js',
         ];
     }
+
+    public function supportsSubscriptions(): bool
+    {
+        return true;
+    }
+
+    public function createSubscription(string $customerId, float $amount, array $options = []): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        $trialDays = $options['trial_days'] ?? 14;
+        $planName = $options['plan_name'] ?? 'Subscription';
+        $interval = $options['interval'] ?? 'month';
+
+        // Calculate start date (after trial)
+        $startDate = date('Y-m-d', strtotime("+{$trialDays} days"));
+
+        $request = [
+            'ARBCreateSubscriptionRequest' => [
+                'merchantAuthentication' => [
+                    'name' => $this->config['login_id'],
+                    'transactionKey' => $this->config['transaction_key'],
+                ],
+                'subscription' => [
+                    'name' => $planName,
+                    'paymentSchedule' => [
+                        'interval' => [
+                            'length' => $interval === 'year' ? 12 : 1,
+                            'unit' => 'months',
+                        ],
+                        'startDate' => $startDate,
+                        'totalOccurrences' => 9999, // Effectively unlimited
+                    ],
+                    'amount' => number_format($amount, 2, '.', ''),
+                    'payment' => [
+                        'creditCard' => [
+                            'cardNumber' => $options['card_number'] ?? '',
+                            'expirationDate' => $options['expiration_date'] ?? '',
+                        ],
+                    ],
+                    'customer' => [
+                        'id' => $customerId,
+                        'email' => $options['email'] ?? '',
+                    ],
+                ],
+            ],
+        ];
+
+        // Add trial period (first billing at $0)
+        if ($trialDays > 0) {
+            $request['ARBCreateSubscriptionRequest']['subscription']['trialAmount'] = '0.00';
+            $request['ARBCreateSubscriptionRequest']['subscription']['paymentSchedule']['trialOccurrences'] = 1;
+        }
+
+        $response = $this->apiRequest($request);
+
+        if (!empty($response['subscriptionId'])) {
+            return [
+                'success' => true,
+                'id' => $response['subscriptionId'],
+                'status' => 'active',
+                'trial_end' => $trialDays > 0 ? date('Y-m-d H:i:s', strtotime("+{$trialDays} days")) : null,
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        return [
+            'success' => false,
+            'error' => $response['messages']['message'][0]['text'] ?? 'Failed to create subscription',
+            'gateway' => $this->getIdentifier(),
+        ];
+    }
+
+    public function cancelSubscription(string $subscriptionId, bool $cancelImmediately = false): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        $request = [
+            'ARBCancelSubscriptionRequest' => [
+                'merchantAuthentication' => [
+                    'name' => $this->config['login_id'],
+                    'transactionKey' => $this->config['transaction_key'],
+                ],
+                'subscriptionId' => $subscriptionId,
+            ],
+        ];
+
+        $response = $this->apiRequest($request);
+
+        if (($response['messages']['resultCode'] ?? '') === 'Ok') {
+            return [
+                'success' => true,
+                'id' => $subscriptionId,
+                'status' => 'canceled',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        return [
+            'success' => false,
+            'error' => $response['messages']['message'][0]['text'] ?? 'Failed to cancel subscription',
+            'gateway' => $this->getIdentifier(),
+        ];
+    }
+
+    public function resumeSubscription(string $subscriptionId): array
+    {
+        // Authorize.net doesn't support resuming canceled subscriptions
+        // A new subscription must be created
+        return [
+            'success' => false,
+            'error' => 'Authorize.net requires creating a new subscription to resume',
+            'gateway' => $this->getIdentifier(),
+        ];
+    }
+
+    public function retrieveSubscription(string $subscriptionId): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        $request = [
+            'ARBGetSubscriptionRequest' => [
+                'merchantAuthentication' => [
+                    'name' => $this->config['login_id'],
+                    'transactionKey' => $this->config['transaction_key'],
+                ],
+                'subscriptionId' => $subscriptionId,
+            ],
+        ];
+
+        $response = $this->apiRequest($request);
+
+        if (!empty($response['subscription'])) {
+            $sub = $response['subscription'];
+            return [
+                'success' => true,
+                'id' => $subscriptionId,
+                'status' => strtolower($sub['status'] ?? 'active'),
+                'name' => $sub['name'] ?? '',
+                'amount' => $sub['amount'] ?? 0,
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        return [
+            'success' => false,
+            'error' => $response['messages']['message'][0]['text'] ?? 'Subscription not found',
+            'gateway' => $this->getIdentifier(),
+        ];
+    }
 }

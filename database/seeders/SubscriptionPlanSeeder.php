@@ -45,7 +45,7 @@ class SubscriptionPlanSeeder extends Seeder
                 'display_order' => 1,
                 'is_popular' => false,
                 'is_active' => true,
-                'cta_text' => 'Get Started Free',
+                'cta_text' => 'Get Trial Code',
                 'cta_style' => 'secondary',
             ]
         );
@@ -83,7 +83,7 @@ class SubscriptionPlanSeeder extends Seeder
                 'display_order' => 2,
                 'is_popular' => false,
                 'is_active' => true,
-                'cta_text' => 'Start Free Trial',
+                'cta_text' => 'Start Plan',
                 'cta_style' => 'primary',
             ]
         );
@@ -121,7 +121,7 @@ class SubscriptionPlanSeeder extends Seeder
                 'display_order' => 3,
                 'is_popular' => true,
                 'is_active' => true,
-                'cta_text' => 'Start Free Trial',
+                'cta_text' => 'Start Plan',
                 'cta_style' => 'warning',
             ]
         );
@@ -159,7 +159,7 @@ class SubscriptionPlanSeeder extends Seeder
                 'display_order' => 4,
                 'is_popular' => false,
                 'is_active' => true,
-                'cta_text' => 'Contact Sales',
+                'cta_text' => 'Start Plan',
                 'cta_style' => 'success',
             ]
         );

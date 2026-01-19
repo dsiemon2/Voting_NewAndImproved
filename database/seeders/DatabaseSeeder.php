@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             AiAgentSeeder::class,
             WebhookSeeder::class,
             AiToolSeeder::class,
+            TwilioSettingsSeeder::class,
         ]);
     }
 

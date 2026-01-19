@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\SubscriptionPlan;
+use App\Models\UserSubscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -49,9 +51,15 @@ class AuthController extends Controller
     /**
      * Show registration form
      */
-    public function showRegister()
+    public function showRegister(Request $request)
     {
-        return view('auth.register');
+        $planCode = $request->query('plan', 'free');
+        $plan = SubscriptionPlan::where('code', $planCode)->first();
+
+        return view('auth.register', [
+            'selectedPlan' => $plan,
+            'planCode' => $planCode,
+        ]);
     }
 
     /**
@@ -64,6 +72,7 @@ class AuthController extends Controller
             'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'plan' => ['nullable', 'string'],
         ]);
 
         // Get the default "User" role
@@ -81,8 +90,35 @@ class AuthController extends Controller
         // Log the registration
         AuditLog::log('register', 'user', $user->id);
 
+        // Assign the selected plan (default to free)
+        $planCode = $validated['plan'] ?? 'free';
+        $plan = SubscriptionPlan::where('code', $planCode)->first();
+
+        if ($plan) {
+            // For free plan, create subscription directly
+            // For paid plans, redirect to pricing/checkout
+            if ($plan->price == 0) {
+                UserSubscription::create([
+                    'user_id' => $user->id,
+                    'subscription_plan_id' => $plan->id,
+                    'status' => 'active',
+                    'current_period_start' => now(),
+                    'current_period_end' => now()->addYear(),
+                ]);
+            } else {
+                // Store selected plan in session for checkout
+                session(['selected_plan_id' => $plan->id]);
+            }
+        }
+
         // Log the user in
         Auth::login($user);
+
+        // Redirect to checkout for paid plans, dashboard for free
+        if ($plan && $plan->price > 0) {
+            return redirect()->route('subscription.pricing')
+                ->with('success', 'Account created! Complete your subscription to get started.');
+        }
 
         return redirect()->route('dashboard')
             ->with('success', 'Welcome! Your account has been created.');

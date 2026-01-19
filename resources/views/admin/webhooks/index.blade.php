@@ -12,11 +12,11 @@
 <div class="grid grid-3" style="margin-bottom: 20px;">
     <div class="card" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white;">
         <div style="font-size: 12px; opacity: 0.8; text-transform: uppercase;">Active Webhooks</div>
-        <div style="font-size: 28px; font-weight: bold;">{{ $webhooks->where('is_active', true)->count() }}</div>
+        <div style="font-size: 28px; font-weight: bold;">{{ $allWebhooks->where('is_active', true)->count() }}</div>
     </div>
     <div class="card" style="background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); color: white;">
         <div style="font-size: 12px; opacity: 0.8; text-transform: uppercase;">Total Webhooks</div>
-        <div style="font-size: 28px; font-weight: bold;">{{ $webhooks->count() }}</div>
+        <div style="font-size: 28px; font-weight: bold;">{{ $allWebhooks->count() }}</div>
     </div>
     <div class="card" style="background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%); color: white;">
         <div style="font-size: 12px; opacity: 0.8; text-transform: uppercase;">Available Events</div>
@@ -116,6 +116,11 @@
             @endforelse
         </tbody>
     </table>
+    @if($webhooks->hasPages())
+        <div style="padding: 15px; border-top: 1px solid #e5e7eb;">
+            {{ $webhooks->links() }}
+        </div>
+    @endif
 </div>
 
 <!-- Create/Edit Modal -->
@@ -244,7 +249,7 @@
 @push('scripts')
 <script>
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-let webhooks = @json($webhooks);
+let webhooks = @json($webhooks->items());
 let currentWebhookId = null;
 
 function openCreateModal() {

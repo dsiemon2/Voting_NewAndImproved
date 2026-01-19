@@ -203,6 +203,46 @@ class PaymentManager
         return $this->getGateway()->verifyWebhook($payload, $signature);
     }
 
+    /**
+     * Check if current gateway supports subscriptions
+     */
+    public function supportsSubscriptions(): bool
+    {
+        return $this->getGateway()->supportsSubscriptions();
+    }
+
+    /**
+     * Create a subscription with optional trial period
+     */
+    public function createSubscription(string $customerId, float $amount, array $options = []): array
+    {
+        return $this->getGateway()->createSubscription($customerId, $amount, $options);
+    }
+
+    /**
+     * Cancel a subscription
+     */
+    public function cancelSubscription(string $subscriptionId, bool $cancelImmediately = false): array
+    {
+        return $this->getGateway()->cancelSubscription($subscriptionId, $cancelImmediately);
+    }
+
+    /**
+     * Resume a canceled subscription
+     */
+    public function resumeSubscription(string $subscriptionId): array
+    {
+        return $this->getGateway()->resumeSubscription($subscriptionId);
+    }
+
+    /**
+     * Retrieve subscription details
+     */
+    public function retrieveSubscription(string $subscriptionId): array
+    {
+        return $this->getGateway()->retrieveSubscription($subscriptionId);
+    }
+
     // Gateway-specific accessors
 
     public function getStripeGateway(): StripeGateway

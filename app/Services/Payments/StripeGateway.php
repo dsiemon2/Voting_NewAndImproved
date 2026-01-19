@@ -8,6 +8,9 @@ use Stripe\PaymentIntent;
 use Stripe\Refund;
 use Stripe\Customer;
 use Stripe\Webhook;
+use Stripe\Subscription;
+use Stripe\Price;
+use Stripe\Product;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\SignatureVerificationException;
 use Exception;
@@ -322,5 +325,158 @@ class StripeGateway implements PaymentGatewayInterface
     protected function convertToCents(float $amount): int
     {
         return (int) round($amount * 100);
+    }
+
+    public function supportsSubscriptions(): bool
+    {
+        return true;
+    }
+
+    public function createSubscription(string $customerId, float $amount, array $options = []): array
+    {
+        try {
+            // Create a price for the subscription
+            $interval = $options['interval'] ?? 'month';
+            $trialDays = $options['trial_days'] ?? 14;
+            $planName = $options['plan_name'] ?? 'Subscription';
+            $planDescription = $options['plan_description'] ?? '';
+
+            // Create product
+            $product = Product::create([
+                'name' => $planName,
+                'description' => $planDescription,
+            ]);
+
+            // Create price
+            $price = Price::create([
+                'product' => $product->id,
+                'unit_amount' => $this->convertToCents($amount),
+                'currency' => 'usd',
+                'recurring' => [
+                    'interval' => $interval,
+                ],
+            ]);
+
+            // Create subscription with trial
+            $subscriptionParams = [
+                'customer' => $customerId,
+                'items' => [
+                    ['price' => $price->id],
+                ],
+            ];
+
+            // Add trial period (14 days by default, no charge until trial ends)
+            if ($trialDays > 0) {
+                $subscriptionParams['trial_period_days'] = $trialDays;
+            }
+
+            if (!empty($options['metadata'])) {
+                $subscriptionParams['metadata'] = $options['metadata'];
+            }
+
+            // Payment behavior - don't charge immediately, wait for trial to end
+            $subscriptionParams['payment_behavior'] = 'default_incomplete';
+            $subscriptionParams['payment_settings'] = [
+                'save_default_payment_method' => 'on_subscription',
+            ];
+
+            $subscription = Subscription::create($subscriptionParams);
+
+            return [
+                'success' => true,
+                'id' => $subscription->id,
+                'status' => $subscription->status,
+                'trial_end' => $subscription->trial_end ? date('Y-m-d H:i:s', $subscription->trial_end) : null,
+                'current_period_start' => date('Y-m-d H:i:s', $subscription->current_period_start),
+                'current_period_end' => date('Y-m-d H:i:s', $subscription->current_period_end),
+                'customer_id' => $customerId,
+                'gateway' => $this->getIdentifier(),
+                'raw' => $subscription->toArray(),
+            ];
+        } catch (ApiErrorException $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'code' => $e->getStripeCode(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function cancelSubscription(string $subscriptionId, bool $cancelImmediately = false): array
+    {
+        try {
+            if ($cancelImmediately) {
+                $subscription = Subscription::retrieve($subscriptionId);
+                $subscription = $subscription->cancel();
+            } else {
+                // Cancel at period end - user keeps access until billing period ends
+                $subscription = Subscription::update($subscriptionId, [
+                    'cancel_at_period_end' => true,
+                ]);
+            }
+
+            return [
+                'success' => true,
+                'id' => $subscription->id,
+                'status' => $subscription->status,
+                'canceled_at' => $subscription->canceled_at ? date('Y-m-d H:i:s', $subscription->canceled_at) : null,
+                'cancel_at_period_end' => $subscription->cancel_at_period_end,
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (ApiErrorException $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function resumeSubscription(string $subscriptionId): array
+    {
+        try {
+            $subscription = Subscription::update($subscriptionId, [
+                'cancel_at_period_end' => false,
+            ]);
+
+            return [
+                'success' => true,
+                'id' => $subscription->id,
+                'status' => $subscription->status,
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (ApiErrorException $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function retrieveSubscription(string $subscriptionId): array
+    {
+        try {
+            $subscription = Subscription::retrieve($subscriptionId);
+
+            return [
+                'success' => true,
+                'id' => $subscription->id,
+                'status' => $subscription->status,
+                'trial_end' => $subscription->trial_end ? date('Y-m-d H:i:s', $subscription->trial_end) : null,
+                'current_period_start' => date('Y-m-d H:i:s', $subscription->current_period_start),
+                'current_period_end' => date('Y-m-d H:i:s', $subscription->current_period_end),
+                'cancel_at_period_end' => $subscription->cancel_at_period_end,
+                'gateway' => $this->getIdentifier(),
+                'raw' => $subscription->toArray(),
+            ];
+        } catch (ApiErrorException $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
     }
 }

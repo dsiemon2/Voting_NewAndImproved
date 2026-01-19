@@ -10,6 +10,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Sidebar Component Styles -->
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+
     <style>
         * {
             margin: 0;
@@ -87,84 +90,7 @@
             min-height: calc(100vh - 70px);
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background-color: #1e40af;
-            padding: 20px;
-            flex-shrink: 0;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar > ul > li {
-            margin-bottom: 5px;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .sidebar > ul > li > span {
-            display: block;
-            padding: 10px 15px;
-            background-color: #1e3a8a;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: #ffffff;
-            display: block;
-            padding: 10px 15px;
-            background-color: #3b82f6;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            margin-bottom: 5px;
-            font-weight: normal;
-            font-size: 14px;
-        }
-
-        .sidebar a:hover {
-            background-color: #1d4ed8;
-        }
-
-        .sidebar a.active {
-            background-color: #ff6600;
-        }
-
-        .sidebar a i {
-            margin-right: 8px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .sidebar .submenu {
-            padding-left: 15px;
-            margin-top: 5px;
-        }
-
-        .sidebar .submenu a {
-            background-color: #2563eb;
-            font-size: 13px;
-        }
-
-        .sidebar .submenu a:hover {
-            background-color: #1d4ed8;
-        }
-
-        .sidebar .menu-header {
-            color: white;
-            font-weight: bold;
-            padding: 10px 15px;
-            background-color: #1e3a8a;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
+        /* Sidebar styles are in /css/sidebar.css */
 
         /* Content */
         .content {
@@ -436,34 +362,12 @@
             font-size: 14px;
         }
 
-        /* Mobile Toggle */
-        .mobile-toggle {
-            display: none;
-            background: #1e3a8a;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 18px;
-        }
+        /* Mobile Toggle - styles in /css/sidebar.css */
 
         /* Responsive */
         @media screen and (max-width: 768px) {
             .container {
-                /* flex-direction: column; - commented out for Firefox compatibility */
-            }
-
-            .sidebar {
-                width: 100%;
-                display: none;
-            }
-
-            .sidebar.active {
-                display: block;
-            }
-
-            .mobile-toggle {
-                display: block;
+                flex-direction: column;
             }
 
             .grid-2, .grid-3, .grid-4 {
@@ -766,77 +670,7 @@
             opacity: 1;
         }
 
-        /* Sidebar Event Menu */
-        .sidebar .event-menu {
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 15px;
-        }
-
-        .sidebar .event-menu-header {
-            color: #fef3c7;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 5px 10px;
-            margin-bottom: 5px;
-        }
-
-        .sidebar .event-menu a {
-            background: rgba(255,255,255,0.15);
-            font-size: 13px;
-            padding: 8px 12px;
-        }
-
-        .sidebar .event-menu a:hover {
-            background: rgba(255,255,255,0.25);
-        }
-
-        .sidebar .event-selector {
-            background: white;
-            color: #1e3a8a;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-
-        .sidebar .event-selector:hover {
-            background: #f0f9ff;
-        }
-
-        .sidebar .event-selector-wrapper {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-
-        .sidebar .event-selector-wrapper .event-selector {
-            flex: 1;
-            margin-bottom: 0;
-        }
-
-        .sidebar .event-close {
-            background: #fee2e2;
-            color: #dc2626;
-            width: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .sidebar .event-close:hover {
-            background: #fecaca;
-        }
+        /* Sidebar Event Menu styles are in /css/sidebar.css */
 
         /* Responsive Grid Fix */
         @media screen and (max-width: 900px) {
@@ -876,123 +710,8 @@
         </button>
 
         <div class="container">
-            <!-- Sidebar -->
-            <nav class="sidebar" id="sidebar">
-                @php
-                    // Get current event from route or cookie
-                    $currentEvent = null;
-                    $managingEventId = null;
-
-                    // First check if we're on an event-specific route
-                    $routeEvent = request()->route('event');
-
-                    if ($routeEvent) {
-                        // We're on an event page - use this event
-                        if (is_object($routeEvent)) {
-                            $currentEvent = $routeEvent;
-                            $managingEventId = $routeEvent->id;
-                        } else {
-                            $managingEventId = $routeEvent;
-                            $currentEvent = \App\Models\Event::with('template')->find($routeEvent);
-                        }
-                    } else {
-                        // Not on event page - check cookie for managed event (use $_COOKIE directly for JS-set cookies)
-                        $managingEventId = $_COOKIE['managing_event_id'] ?? null;
-                        if ($managingEventId && is_numeric($managingEventId)) {
-                            $currentEvent = \App\Models\Event::with('template')->find($managingEventId);
-                        }
-                    }
-                @endphp
-
-                @if($currentEvent)
-                    <!-- Event Context Menu -->
-                    <div class="event-menu">
-                        <div class="event-selector-wrapper">
-                            <a href="{{ route('admin.events.show', $currentEvent) }}" class="event-selector">
-                                <span><i class="fas {{ $currentEvent->template->icon ?? 'fa-calendar' }}"></i> {{ \Illuminate\Support\Str::limit($currentEvent->name, 20) }}</span>
-                            </a>
-                            <a href="javascript:void(0)" onclick="clearManagedEvent()" class="event-close" title="Stop managing this event">
-                                <i class="fas fa-times"></i>
-                            </a>
-                        </div>
-
-                        <div class="event-menu-header">Event Actions</div>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            <li><a href="{{ route('voting.index', $currentEvent) }}" class="{{ request()->routeIs('voting.*') ? 'active' : '' }}"><i class="fas fa-vote-yea"></i> Vote Now</a></li>
-                            <li><a href="{{ route('results.index', $currentEvent) }}" class="{{ request()->routeIs('results.*') ? 'active' : '' }}"><i class="fas fa-chart-bar"></i> View Results</a></li>
-                        </ul>
-
-                        <div class="event-menu-header">Manage</div>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            @if($currentEvent->hasModule('divisions'))
-                                <li><a href="{{ route('admin.events.divisions.index', $currentEvent) }}" class="{{ request()->routeIs('*.divisions.*') ? 'active' : '' }}"><i class="fas fa-layer-group"></i> Divisions</a></li>
-                            @endif
-                            @if($currentEvent->hasModule('participants'))
-                                <li><a href="{{ route('admin.events.participants.index', $currentEvent) }}" class="{{ request()->routeIs('*.participants.*') ? 'active' : '' }}"><i class="fas fa-users"></i> {{ $currentEvent->template->participant_label ?? 'Participants' }}</a></li>
-                            @endif
-                            @if($currentEvent->hasModule('entries'))
-                                <li><a href="{{ route('admin.events.entries.index', $currentEvent) }}" class="{{ request()->routeIs('*.entries.*') ? 'active' : '' }}"><i class="fas fa-clipboard-list"></i> {{ $currentEvent->template->entry_label ?? 'Entries' }}</a></li>
-                            @endif
-                            @if($currentEvent->hasModule('categories'))
-                                <li><a href="{{ route('admin.events.categories.index', $currentEvent) }}" class="{{ request()->routeIs('*.categories.*') ? 'active' : '' }}"><i class="fas fa-tags"></i> Categories</a></li>
-                            @endif
-                            @if($currentEvent->hasModule('import'))
-                                <li><a href="{{ route('admin.events.import', $currentEvent) }}" class="{{ request()->routeIs('*.import') ? 'active' : '' }}"><i class="fas fa-file-import"></i> Import</a></li>
-                            @endif
-                            @if($currentEvent->hasModule('pdf'))
-                                <li><a href="{{ route('admin.events.ballots', $currentEvent) }}" class="{{ request()->routeIs('*.ballots') ? 'active' : '' }}"><i class="fas fa-file-pdf"></i> Print Ballots</a></li>
-                            @endif
-                            @if($currentEvent->hasModule('judging'))
-                                <li><a href="{{ route('admin.events.judges.index', $currentEvent) }}" class="{{ request()->routeIs('*.judges.*') ? 'active' : '' }}"><i class="fas fa-gavel"></i> Judging Panel</a></li>
-                            @endif
-                            <li><a href="{{ route('admin.events.edit', $currentEvent) }}" class="{{ request()->routeIs('admin.events.edit') ? 'active' : '' }}"><i class="fas fa-cog"></i> Event Settings</a></li>
-                        </ul>
-                    </div>
-                @endif
-
-                <div class="menu-header">
-                    <i class="fas fa-cog"></i> Admin Menu
-                </div>
-                <ul>
-                    @if(auth()->user()->role?->name === 'Administrator')
-                        <li><a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users.*') ? 'active' : '' }}"><i class="fas fa-users-cog"></i> User Management</a></li>
-                    @endif
-                    <li><a href="{{ route('admin.events.index') }}" class="{{ request()->routeIs('admin.events.index') || request()->routeIs('admin.events.create') ? 'active' : '' }}"><i class="fas fa-calendar-alt"></i> Events</a></li>
-                    <li><a href="{{ route('admin.templates.index') }}" class="{{ request()->routeIs('admin.templates.*') ? 'active' : '' }}"><i class="fas fa-file-alt"></i> Templates</a></li>
-                    <li><a href="{{ route('admin.voting-types.index') }}" class="{{ request()->routeIs('admin.voting-types.*') ? 'active' : '' }}"><i class="fas fa-poll"></i> Voting Types</a></li>
-
-                    @if(auth()->user()->role?->name === 'Administrator')
-                    <div class="menu-header mt-3">
-                        <i class="fas fa-robot"></i> AI Settings
-                    </div>
-                    <li><a href="{{ route('admin.ai-settings.voices') }}" class="{{ request()->routeIs('admin.ai-settings.voices') ? 'active' : '' }}"><i class="fas fa-volume-up"></i> Voices & Languages</a></li>
-                    <li><a href="{{ route('admin.ai-settings.config') }}" class="{{ request()->routeIs('admin.ai-settings.config') ? 'active' : '' }}"><i class="fas fa-sliders-h"></i> AI Config</a></li>
-                    <li><a href="{{ route('admin.ai-settings.tools') }}" class="{{ request()->routeIs('admin.ai-settings.tools') ? 'active' : '' }}"><i class="fas fa-tools"></i> AI Tools</a></li>
-                    <li><a href="{{ route('admin.ai-settings.knowledge-base') }}" class="{{ request()->routeIs('admin.ai-settings.knowledge-base') ? 'active' : '' }}"><i class="fas fa-book"></i> Knowledge Base</a></li>
-                    <li><a href="{{ route('admin.ai-settings.greeting') }}" class="{{ request()->routeIs('admin.ai-settings.greeting') ? 'active' : '' }}"><i class="fas fa-comment-dots"></i> Greeting</a></li>
-                    <li><a href="{{ route('admin.ai-providers.index') }}" class="{{ request()->routeIs('admin.ai-providers.*') ? 'active' : '' }}"><i class="fas fa-brain"></i> AI Providers</a></li>
-
-                    <div class="menu-header mt-3">
-                        <i class="fas fa-cogs"></i> System
-                    </div>
-                    <li><a href="{{ route('admin.ai-settings.features') }}" class="{{ request()->routeIs('admin.ai-settings.features') ? 'active' : '' }}"><i class="fas fa-toggle-on"></i> Features</a></li>
-                    <li><a href="{{ route('admin.ai-settings.settings') }}" class="{{ request()->routeIs('admin.ai-settings.settings') ? 'active' : '' }}"><i class="fas fa-cog"></i> Settings</a></li>
-                    <li><a href="{{ route('admin.payment-processing.index') }}" class="{{ request()->routeIs('admin.payment-processing.*') ? 'active' : '' }}"><i class="fas fa-credit-card"></i> Payment Gateways</a></li>
-                    @endif
-
-                    <div class="menu-header mt-3">
-                        <i class="fas fa-user-circle"></i> Account
-                    </div>
-                    <li><a href="{{ route('account.index') }}" class="{{ request()->routeIs('account.*') ? 'active' : '' }}"><i class="fas fa-shield-alt"></i> Account Settings</a></li>
-                    <li><a href="{{ route('subscription.manage') }}" class="{{ request()->routeIs('subscription.manage') ? 'active' : '' }}"><i class="fas fa-id-card"></i> My Subscription</a></li>
-                    <li><a href="{{ route('subscription.pricing') }}" class="{{ request()->routeIs('subscription.pricing') ? 'active' : '' }}"><i class="fas fa-tags"></i> Pricing Plans</a></li>
-
-                    <div class="menu-header mt-3">
-                        <i class="fas fa-chart-bar"></i> Reports
-                    </div>
-                    <li><a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                </ul>
-            </nav>
+            <!-- Sidebar Component -->
+            <x-sidebar />
 
             <!-- Content -->
             <main class="content">
@@ -1040,39 +759,8 @@
         @yield('content')
     @endauth
 
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-
-        // Cookie helper functions
-        function setCookie(name, value, days) {
-            const expires = new Date(Date.now() + days * 864e5).toUTCString();
-            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
-        }
-
-        function getCookie(name) {
-            return document.cookie.split('; ').reduce((r, v) => {
-                const parts = v.split('=');
-                return parts[0] === name ? decodeURIComponent(parts[1]) : r;
-            }, '');
-        }
-
-        function deleteCookie(name) {
-            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-        }
-
-        // Set/clear managing event cookie based on current page
-        @if(isset($managingEventId) && $managingEventId)
-            setCookie('managing_event_id', '{{ $managingEventId }}', 1);
-        @endif
-
-        function clearManagedEvent() {
-            deleteCookie('managing_event_id');
-            window.location.href = '{{ route("admin.events.index") }}';
-        }
-    </script>
+    <!-- Sidebar Component JavaScript -->
+    <script src="{{ asset('js/sidebar.js') }}"></script>
 
     @stack('scripts')
 

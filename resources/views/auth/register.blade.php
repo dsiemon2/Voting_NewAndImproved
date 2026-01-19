@@ -439,21 +439,15 @@
                     </div>
                 </div>
 
-                @php
-                    $selectedPlan = request('plan', 'free');
-                    $planDetails = [
-                        'free' => ['name' => 'Free Trial', 'price' => '$0/mo'],
-                        'nonprofit' => ['name' => 'Non-Profit', 'price' => '$9.99/mo'],
-                        'professional' => ['name' => 'Professional', 'price' => '$29.99/mo'],
-                        'premium' => ['name' => 'Premium', 'price' => '$59.00/mo'],
-                    ];
-                    $currentPlan = $planDetails[$selectedPlan] ?? $planDetails['free'];
-                @endphp
-
                 <div class="plan-badge">
                     <i class="fas fa-tag"></i>
-                    <span class="plan-name">{{ $currentPlan['name'] }}</span>
-                    <span class="plan-price">- {{ $currentPlan['price'] }}</span>
+                    @if(isset($selectedPlan) && $selectedPlan)
+                        <span class="plan-name">{{ $selectedPlan->name }}</span>
+                        <span class="plan-price">- ${{ number_format($selectedPlan->price, 2) }}/mo</span>
+                    @else
+                        <span class="plan-name">Free Trial</span>
+                        <span class="plan-price">- $0.00/mo</span>
+                    @endif
                 </div>
             </div>
 
@@ -478,28 +472,28 @@
                         <label style="font-weight: 600; color: #374151; margin-bottom: 10px; display: block;">Select Your Plan</label>
                         <div class="plan-options">
                             <div class="plan-option">
-                                <input type="radio" name="plan" id="plan_free" value="free" {{ $selectedPlan == 'free' ? 'checked' : '' }}>
+                                <input type="radio" name="plan" id="plan_free" value="free" {{ ($planCode ?? 'free') == 'free' ? 'checked' : '' }}>
                                 <label for="plan_free">
                                     <div class="plan-option-name">Free Trial</div>
                                     <div class="plan-option-price">$0/mo</div>
                                 </label>
                             </div>
                             <div class="plan-option">
-                                <input type="radio" name="plan" id="plan_nonprofit" value="nonprofit" {{ $selectedPlan == 'nonprofit' ? 'checked' : '' }}>
+                                <input type="radio" name="plan" id="plan_nonprofit" value="nonprofit" {{ ($planCode ?? '') == 'nonprofit' ? 'checked' : '' }}>
                                 <label for="plan_nonprofit">
                                     <div class="plan-option-name">Non-Profit</div>
                                     <div class="plan-option-price">$9.99/mo</div>
                                 </label>
                             </div>
                             <div class="plan-option">
-                                <input type="radio" name="plan" id="plan_professional" value="professional" {{ $selectedPlan == 'professional' ? 'checked' : '' }}>
+                                <input type="radio" name="plan" id="plan_professional" value="professional" {{ ($planCode ?? '') == 'professional' ? 'checked' : '' }}>
                                 <label for="plan_professional">
                                     <div class="plan-option-name">Professional</div>
                                     <div class="plan-option-price">$29.99/mo</div>
                                 </label>
                             </div>
                             <div class="plan-option">
-                                <input type="radio" name="plan" id="plan_premium" value="premium" {{ $selectedPlan == 'premium' ? 'checked' : '' }}>
+                                <input type="radio" name="plan" id="plan_premium" value="premium" {{ ($planCode ?? '') == 'premium' ? 'checked' : '' }}>
                                 <label for="plan_premium">
                                     <div class="plan-option-name">Premium</div>
                                     <div class="plan-option-price">$59.00/mo</div>

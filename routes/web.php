@@ -22,6 +22,9 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Api\AiChatController;
 use App\Http\Controllers\Voting\VoteController;
 use App\Http\Controllers\Voting\ResultsController;
+use App\Http\Controllers\TrialCodeController;
+use App\Http\Controllers\Admin\TrialCodeController as AdminTrialCodeController;
+use App\Http\Controllers\Admin\TwilioSettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +37,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 })->name('home');
+
+// Trial Code Routes (Public AJAX endpoints)
+Route::prefix('trial-code')->name('trial-code.')->group(function () {
+    Route::post('/request', [TrialCodeController::class, 'request'])->name('request');
+    Route::post('/validate', [TrialCodeController::class, 'validate'])->name('validate');
+    Route::post('/resend', [TrialCodeController::class, 'resend'])->name('resend');
+});
 
 // Authentication
 Route::middleware('guest')->group(function () {
@@ -178,6 +188,25 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/{webhook}/test', [WebhookController::class, 'test'])->name('test');
             Route::get('/{webhook}/logs', [WebhookController::class, 'logs'])->name('logs');
             Route::delete('/{webhook}/logs', [WebhookController::class, 'clearLogs'])->name('logs.clear');
+        });
+
+        // Trial Codes (Admin only)
+        Route::prefix('trial-codes')->name('trial-codes.')->middleware(['role:Administrator'])->group(function () {
+            Route::get('/', [AdminTrialCodeController::class, 'index'])->name('index');
+            Route::get('/{trialCode}', [AdminTrialCodeController::class, 'show'])->name('show');
+            Route::post('/store', [AdminTrialCodeController::class, 'store'])->name('store');
+            Route::post('/{trialCode}/extend', [AdminTrialCodeController::class, 'extend'])->name('extend');
+            Route::post('/{trialCode}/revoke', [AdminTrialCodeController::class, 'revoke'])->name('revoke');
+            Route::post('/{trialCode}/resend', [AdminTrialCodeController::class, 'resend'])->name('resend');
+            Route::post('/expire-old', [AdminTrialCodeController::class, 'expireOld'])->name('expire-old');
+        });
+
+        // Twilio Settings (Admin only)
+        Route::prefix('twilio-settings')->name('twilio-settings.')->middleware(['role:Administrator'])->group(function () {
+            Route::get('/', [TwilioSettingsController::class, 'index'])->name('index');
+            Route::post('/', [TwilioSettingsController::class, 'update'])->name('update');
+            Route::post('/test-connection', [TwilioSettingsController::class, 'testConnection'])->name('test-connection');
+            Route::post('/send-test-sms', [TwilioSettingsController::class, 'sendTestSms'])->name('send-test-sms');
         });
 
         // Events - Index, Show, Edit, Update, Destroy (no plan limit)

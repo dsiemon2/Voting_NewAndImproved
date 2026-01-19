@@ -1,0 +1,195 @@
+/**
+ * Sidebar Navigation Styles
+ *
+ * Reusable sidebar component styles for the voting application.
+ * Include this file in layouts that need the sidebar.
+ */
+
+/* Base Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #1e40af;
+    padding: 20px;
+    flex-shrink: 0;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+}
+
+/* Custom Scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Menu Lists */
+.sidebar__menu-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 5px 0;
+}
+
+.sidebar__menu-list li {
+    margin-bottom: 5px;
+}
+
+/* Menu Headers */
+.sidebar__menu-header {
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    background-color: #1e3a8a;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.sidebar__menu-header--spaced {
+    margin-top: 15px;
+}
+
+/* Menu Links */
+.sidebar__menu-list a {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    padding: 10px 15px;
+    background-color: #3b82f6;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.sidebar__menu-list a:hover {
+    background-color: #1d4ed8;
+}
+
+.sidebar__menu-list a.active {
+    background-color: #ff6600;
+}
+
+.sidebar__menu-list a i {
+    margin-right: 8px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Event Context Menu */
+.sidebar__event-menu {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.sidebar__event-menu .sidebar__menu-header {
+    color: #fef3c7;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    background: transparent;
+}
+
+.sidebar__event-menu .sidebar__menu-list a {
+    background: rgba(255, 255, 255, 0.15);
+    font-size: 13px;
+    padding: 8px 12px;
+}
+
+.sidebar__event-menu .sidebar__menu-list a:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Event Selector */
+.sidebar__event-selector-wrapper {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.sidebar__event-selector {
+    flex: 1;
+    background: white;
+    color: #1e3a8a;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.sidebar__event-selector:hover {
+    background: #f0f9ff;
+    color: #1e3a8a;
+}
+
+.sidebar__event-close {
+    background: #fee2e2;
+    color: #dc2626;
+    width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.sidebar__event-close:hover {
+    background: #fecaca;
+    color: #dc2626;
+}
+
+/* Mobile Toggle Button */
+.mobile-toggle {
+    display: none;
+    background: #1e3a8a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        display: none;
+        height: auto;
+        max-height: 60vh;
+        position: relative;
+        overflow-y: auto;
+    }
+
+    .sidebar.active {
+        display: block;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+}

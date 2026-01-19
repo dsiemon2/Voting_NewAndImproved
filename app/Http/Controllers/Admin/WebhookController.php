@@ -14,10 +14,14 @@ class WebhookController extends Controller
      */
     public function index()
     {
-        $webhooks = Webhook::withCount('logs')->orderBy('name')->get();
+        $webhooks = Webhook::withCount('logs')->orderBy('name')->paginate(15);
+
+        // Get all webhooks for stats (before pagination)
+        $allWebhooks = Webhook::all();
 
         return view('admin.webhooks.index', [
             'webhooks' => $webhooks,
+            'allWebhooks' => $allWebhooks,
             'availableEvents' => Webhook::EVENTS,
         ]);
     }

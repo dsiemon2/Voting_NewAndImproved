@@ -30,7 +30,18 @@
       "Bash(netstat:*)",
       "Bash(docker exec:*)",
       "Bash(docker network inspect:*)",
-      "Bash(docker-compose down:*)"
+      "Bash(docker-compose down:*)",
+      "Bash(ping:*)",
+      "Bash(docker-compose exec:*)",
+      "Bash(if not exist \"resources\\\\views\\\\components\" mkdir \"resources\\\\views\\\\components\")",
+      "Bash(npm install)",
+      "Bash(npx prisma generate:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(npx prisma db seed:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

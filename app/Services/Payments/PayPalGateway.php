@@ -409,4 +409,235 @@ class PayPalGateway implements PaymentGatewayInterface
             'sdk_url' => 'https://www.paypal.com/sdk/js?client-id=' . $this->getPublishableKey(),
         ];
     }
+
+    public function supportsSubscriptions(): bool
+    {
+        return true;
+    }
+
+    public function createSubscription(string $customerId, float $amount, array $options = []): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $interval = $options['interval'] ?? 'month';
+            $trialDays = $options['trial_days'] ?? 14;
+            $planName = $options['plan_name'] ?? 'Subscription';
+            $planDescription = $options['plan_description'] ?? '';
+
+            // Create a billing plan
+            $planData = [
+                'product_id' => $options['product_id'] ?? $this->createProduct($planName, $planDescription),
+                'name' => $planName,
+                'description' => $planDescription,
+                'billing_cycles' => [
+                    [
+                        'frequency' => [
+                            'interval_unit' => strtoupper($interval === 'year' ? 'YEAR' : 'MONTH'),
+                            'interval_count' => 1,
+                        ],
+                        'tenure_type' => 'REGULAR',
+                        'sequence' => $trialDays > 0 ? 2 : 1,
+                        'total_cycles' => 0, // Infinite
+                        'pricing_scheme' => [
+                            'fixed_price' => [
+                                'value' => number_format($amount, 2, '.', ''),
+                                'currency_code' => 'USD',
+                            ],
+                        ],
+                    ],
+                ],
+                'payment_preferences' => [
+                    'auto_bill_outstanding' => true,
+                    'payment_failure_threshold' => 3,
+                ],
+            ];
+
+            // Add trial period
+            if ($trialDays > 0) {
+                array_unshift($planData['billing_cycles'], [
+                    'frequency' => [
+                        'interval_unit' => 'DAY',
+                        'interval_count' => $trialDays,
+                    ],
+                    'tenure_type' => 'TRIAL',
+                    'sequence' => 1,
+                    'total_cycles' => 1,
+                    'pricing_scheme' => [
+                        'fixed_price' => [
+                            'value' => '0',
+                            'currency_code' => 'USD',
+                        ],
+                    ],
+                ]);
+            }
+
+            $plan = $this->apiRequest('POST', '/v1/billing/plans', $planData);
+
+            if (empty($plan['id'])) {
+                return [
+                    'success' => false,
+                    'error' => $plan['message'] ?? 'Failed to create billing plan',
+                    'gateway' => $this->getIdentifier(),
+                ];
+            }
+
+            // Create subscription
+            $subscriptionData = [
+                'plan_id' => $plan['id'],
+                'subscriber' => [
+                    'email_address' => $customerId,
+                ],
+                'application_context' => [
+                    'return_url' => $options['return_url'] ?? config('app.url') . '/subscription/success',
+                    'cancel_url' => $options['cancel_url'] ?? config('app.url') . '/subscription/cancel',
+                ],
+            ];
+
+            $subscription = $this->apiRequest('POST', '/v1/billing/subscriptions', $subscriptionData);
+
+            if (!empty($subscription['id'])) {
+                $approvalLink = collect($subscription['links'] ?? [])->firstWhere('rel', 'approve')['href'] ?? null;
+
+                return [
+                    'success' => true,
+                    'id' => $subscription['id'],
+                    'status' => $subscription['status'] ?? 'pending',
+                    'approval_url' => $approvalLink,
+                    'trial_end' => $trialDays > 0 ? date('Y-m-d H:i:s', strtotime("+{$trialDays} days")) : null,
+                    'gateway' => $this->getIdentifier(),
+                    'raw' => $subscription,
+                ];
+            }
+
+            return [
+                'success' => false,
+                'error' => $subscription['message'] ?? 'Failed to create subscription',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    protected function createProduct(string $name, string $description): string
+    {
+        $product = $this->apiRequest('POST', '/v1/catalogs/products', [
+            'name' => $name,
+            'description' => $description,
+            'type' => 'SERVICE',
+            'category' => 'SOFTWARE',
+        ]);
+
+        return $product['id'] ?? '';
+    }
+
+    public function cancelSubscription(string $subscriptionId, bool $cancelImmediately = false): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $result = $this->apiRequest('POST', "/v1/billing/subscriptions/{$subscriptionId}/cancel", [
+                'reason' => 'Customer requested cancellation',
+            ]);
+
+            return [
+                'success' => true,
+                'id' => $subscriptionId,
+                'status' => 'canceled',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function resumeSubscription(string $subscriptionId): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $result = $this->apiRequest('POST', "/v1/billing/subscriptions/{$subscriptionId}/activate", [
+                'reason' => 'Reactivating subscription',
+            ]);
+
+            return [
+                'success' => true,
+                'id' => $subscriptionId,
+                'status' => 'active',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function retrieveSubscription(string $subscriptionId): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $subscription = $this->apiRequest('GET', "/v1/billing/subscriptions/{$subscriptionId}");
+
+            if (!empty($subscription['id'])) {
+                return [
+                    'success' => true,
+                    'id' => $subscription['id'],
+                    'status' => strtolower($subscription['status'] ?? 'unknown'),
+                    'current_period_start' => $subscription['billing_info']['last_payment']['time'] ?? null,
+                    'current_period_end' => $subscription['billing_info']['next_billing_time'] ?? null,
+                    'gateway' => $this->getIdentifier(),
+                    'raw' => $subscription,
+                ];
+            }
+
+            return [
+                'success' => false,
+                'error' => 'Subscription not found',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
 }

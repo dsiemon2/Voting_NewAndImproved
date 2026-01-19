@@ -99,6 +99,11 @@
                 @endforelse
             </tbody>
         </table>
+        @if($votingTypes->hasPages())
+            <div style="padding: 15px; border-top: 1px solid #e5e7eb;">
+                {{ $votingTypes->links() }}
+            </div>
+        @endif
     </div>
 
     <!-- Presets Section -->

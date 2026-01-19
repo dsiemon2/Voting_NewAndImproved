@@ -65,6 +65,33 @@ Reference old site at: http://localhost:3000/vote_TGBO/
 - **Provider Model**: `app/Models/AiProvider.php`
 - **AI Providers Page**: `resources/views/admin/ai-providers/index.blade.php`
 
+### Sidebar Component (Reusable)
+- **Blade Component**: `resources/views/components/sidebar.blade.php`
+- **CSS Styles**: `public/css/sidebar.css` (BEM naming)
+- **JavaScript**: `public/js/sidebar.js` (Sidebar object)
+- **Layout**: `resources/views/layouts/app.blade.php` (uses `<x-sidebar />`)
+
+#### Sidebar Features
+- Scroll position persistence via `sessionStorage`
+- Event context menu (shown when managing specific event)
+- Mobile toggle at 768px breakpoint
+- Cookie-based event tracking (`managing_event_id`)
+
+#### Key CSS Classes
+```css
+.sidebar                     /* Main container */
+.sidebar__menu-list          /* Menu items list */
+.sidebar__menu-header        /* Section headers */
+.sidebar__event-menu         /* Event context wrapper */
+```
+
+#### JavaScript API
+```javascript
+Sidebar.toggle()             // Mobile toggle
+Sidebar.clearManagedEvent()  // Clear event context
+Sidebar.initScrollPersistence() // Save/restore scroll
+```
+
 ### Payment Processing System
 - **Payment Gateway Model**: `app/Models/PaymentGateway.php`
 - **Payment Controller**: `app/Http/Controllers/Admin/PaymentGatewayController.php`

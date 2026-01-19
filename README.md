@@ -33,6 +33,11 @@ A modern, flexible voting application built with Laravel 11, featuring dynamic e
 - **Feature Gates**: Plan-based access control
 - **Usage Tracking**: Monitor events and entries vs plan limits
 
+### SMS Notifications (New in v1.3)
+- **Twilio Integration**: SMS delivery for trial codes and notifications
+- **Admin Configuration**: Manage credentials via admin panel
+- **Test Mode**: Sandbox testing before going live
+
 ## Tech Stack
 
 - **Backend**: Laravel 11, PHP 8.3

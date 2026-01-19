@@ -476,4 +476,204 @@ class SquareGateway implements PaymentGatewayInterface
             return ['success' => false, 'error' => $e->getMessage()];
         }
     }
+
+    public function supportsSubscriptions(): bool
+    {
+        return true;
+    }
+
+    public function createSubscription(string $customerId, float $amount, array $options = []): array
+    {
+        if (!$this->client) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not initialized',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $trialDays = $options['trial_days'] ?? 14;
+            $planName = $options['plan_name'] ?? 'Subscription';
+            $interval = $options['interval'] ?? 'month';
+
+            // Create catalog item for subscription
+            $catalogApi = $this->client->getCatalogApi();
+
+            $subscriptionPlan = new \Square\Models\CatalogSubscriptionPlan();
+            $subscriptionPlan->setName($planName);
+
+            $phase = new \Square\Models\SubscriptionPhase();
+            $phase->setCadence($interval === 'year' ? 'ANNUAL' : 'MONTHLY');
+
+            $pricing = new \Square\Models\SubscriptionPricing();
+            $priceMoney = new \Square\Models\Money();
+            $priceMoney->setAmount($this->convertToCents($amount));
+            $priceMoney->setCurrency('USD');
+            $pricing->setPriceMoney($priceMoney);
+            $phase->setPricing($pricing);
+
+            $subscriptionPlan->setSubscriptionPlanData(
+                (new \Square\Models\CatalogSubscriptionPlanVariation())
+                    ->setName($planName)
+                    ->setPhases([$phase])
+            );
+
+            // Create subscription with trial
+            $subscriptionApi = $this->client->getSubscriptionsApi();
+
+            $subscription = new \Square\Models\CreateSubscriptionRequest();
+            $subscription->setCustomerId($customerId);
+            $subscription->setLocationId($this->getLocationId());
+            $subscription->setIdempotencyKey(uniqid('sub_'));
+
+            // Set start date after trial period
+            if ($trialDays > 0) {
+                $startDate = date('Y-m-d', strtotime("+{$trialDays} days"));
+                $subscription->setStartDate($startDate);
+            }
+
+            $response = $subscriptionApi->createSubscription($subscription);
+
+            if ($response->isSuccess()) {
+                $sub = $response->getResult()->getSubscription();
+                return [
+                    'success' => true,
+                    'id' => $sub->getId(),
+                    'status' => strtolower($sub->getStatus()),
+                    'trial_end' => $trialDays > 0 ? date('Y-m-d H:i:s', strtotime("+{$trialDays} days")) : null,
+                    'gateway' => $this->getIdentifier(),
+                ];
+            }
+
+            $errors = $response->getErrors();
+            return [
+                'success' => false,
+                'error' => $errors[0]->getDetail() ?? 'Failed to create subscription',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function cancelSubscription(string $subscriptionId, bool $cancelImmediately = false): array
+    {
+        if (!$this->client) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not initialized',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $subscriptionApi = $this->client->getSubscriptionsApi();
+            $response = $subscriptionApi->cancelSubscription($subscriptionId);
+
+            if ($response->isSuccess()) {
+                return [
+                    'success' => true,
+                    'id' => $subscriptionId,
+                    'status' => 'canceled',
+                    'gateway' => $this->getIdentifier(),
+                ];
+            }
+
+            $errors = $response->getErrors();
+            return [
+                'success' => false,
+                'error' => $errors[0]->getDetail() ?? 'Failed to cancel subscription',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function resumeSubscription(string $subscriptionId): array
+    {
+        if (!$this->client) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not initialized',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $subscriptionApi = $this->client->getSubscriptionsApi();
+            $response = $subscriptionApi->resumeSubscription($subscriptionId, new \Square\Models\ResumeSubscriptionRequest());
+
+            if ($response->isSuccess()) {
+                return [
+                    'success' => true,
+                    'id' => $subscriptionId,
+                    'status' => 'active',
+                    'gateway' => $this->getIdentifier(),
+                ];
+            }
+
+            $errors = $response->getErrors();
+            return [
+                'success' => false,
+                'error' => $errors[0]->getDetail() ?? 'Failed to resume subscription',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function retrieveSubscription(string $subscriptionId): array
+    {
+        if (!$this->client) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not initialized',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $subscriptionApi = $this->client->getSubscriptionsApi();
+            $response = $subscriptionApi->retrieveSubscription($subscriptionId);
+
+            if ($response->isSuccess()) {
+                $sub = $response->getResult()->getSubscription();
+                return [
+                    'success' => true,
+                    'id' => $sub->getId(),
+                    'status' => strtolower($sub->getStatus()),
+                    'start_date' => $sub->getStartDate(),
+                    'gateway' => $this->getIdentifier(),
+                ];
+            }
+
+            $errors = $response->getErrors();
+            return [
+                'success' => false,
+                'error' => $errors[0]->getDetail() ?? 'Subscription not found',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
 }

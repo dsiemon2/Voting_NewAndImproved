@@ -16,7 +16,7 @@ class VotingTypeController extends Controller
         $votingTypes = VotingType::with('placeConfigs')
             ->withCount('events')
             ->orderBy('name')
-            ->get();
+            ->paginate(15);
 
         return view('admin.voting-types.index', compact('votingTypes'));
     }

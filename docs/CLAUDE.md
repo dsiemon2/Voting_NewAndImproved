@@ -329,6 +329,91 @@ Route::middleware(['plan.events'])->...
 - Check event_modules for event-specific overrides
 - Use `$event->hasModule('code')` for checking
 
+## UI Components Architecture (v1.4.0)
+
+### Sidebar Component
+
+The sidebar navigation is implemented as a reusable Blade component with external CSS and JavaScript files following BEM naming conventions.
+
+#### Key Files
+| File | Purpose |
+|------|---------|
+| `resources/views/components/sidebar.blade.php` | Blade component |
+| `public/css/sidebar.css` | Sidebar styles (BEM naming) |
+| `public/js/sidebar.js` | Sidebar JavaScript functionality |
+
+#### Usage
+```blade
+<!-- In layouts/app.blade.php -->
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+...
+<x-sidebar />
+...
+<script src="{{ asset('js/sidebar.js') }}"></script>
+```
+
+#### Features
+- **Event Context Menu**: Shows when managing a specific event (from route or cookie)
+- **Scroll Position Persistence**: Saves/restores scroll position via `sessionStorage`
+- **Mobile Toggle**: Responsive behavior at 768px breakpoint
+- **Cookie-Based Event Tracking**: Uses `managing_event_id` cookie for context
+
+#### BEM CSS Classes
+```css
+.sidebar                     /* Base sidebar */
+.sidebar__menu-list          /* Menu list container */
+.sidebar__menu-header        /* Section headers */
+.sidebar__menu-header--spaced /* Spaced header variant */
+.sidebar__event-menu         /* Event context menu wrapper */
+.sidebar__event-selector     /* Event name link */
+.sidebar__event-close        /* Close event context button */
+```
+
+#### JavaScript API (Sidebar object)
+```javascript
+Sidebar.init()               // Initialize on DOM ready
+Sidebar.toggle()             // Toggle mobile visibility
+Sidebar.initScrollPersistence() // Set up scroll position memory
+Sidebar.clearManagedEvent()  // Clear event cookie, redirect to events list
+Sidebar.setCookie(name, value, days)  // Set cookie
+Sidebar.deleteCookie(name)   // Delete cookie
+```
+
+### Pagination Pattern
+
+Controllers should use `paginate(15)` for admin listing pages. Views use `->links()` for pagination controls.
+
+#### Controller Example
+```php
+public function index()
+{
+    $items = Model::query()
+        ->orderBy('name')
+        ->paginate(15);
+    return view('admin.items.index', compact('items'));
+}
+```
+
+#### View Example
+```blade
+@if($items->hasPages())
+    <div class="pagination-wrapper">
+        {{ $items->links() }}
+    </div>
+@endif
+```
+
+#### Pages with Pagination
+- Events (`/admin/events`)
+- Divisions (`/admin/events/{event}/divisions`)
+- Participants (`/admin/events/{event}/participants`)
+- Entries (`/admin/events/{event}/entries`)
+- Categories (`/admin/events/{event}/categories`)
+- Voting Types (`/admin/voting-types`)
+- Webhooks (`/admin/webhooks`)
+- Trial Codes (`/admin/trial-codes`)
+- Users (`/admin/users`)
+
 ## Recent Fixes (2026-01-04)
 1. **Voting results for events without divisions** - Fixed single results table display
 2. **Import functionality** - Implemented CSV/Excel import with Maatwebsite/Excel
@@ -341,3 +426,12 @@ Route::middleware(['plan.events'])->...
 6. **Categories pagination** - Added pagination (15 per page) to categories management
 7. **Row selection removed** - Removed non-functional row selection from all tables
 8. **Results page header centering** - Fixed event header card centering with flexbox wrapper
+
+## Recent Fixes (2026-01-19)
+9. **Sidebar refactoring** - Extracted sidebar into reusable Blade component
+   - Created `public/css/sidebar.css` with BEM naming
+   - Created `public/js/sidebar.js` with Sidebar object
+   - Updated `resources/views/components/sidebar.blade.php`
+   - Removed 200+ lines of inline code from `app.blade.php`
+10. **Voting Types pagination** - Added pagination to voting types list
+11. **Webhooks pagination** - Added pagination to webhooks list

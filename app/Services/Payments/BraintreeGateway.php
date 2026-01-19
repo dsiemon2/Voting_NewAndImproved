@@ -393,4 +393,144 @@ class BraintreeGateway implements PaymentGatewayInterface
             'test_mode' => $this->isTestMode(),
         ];
     }
+
+    public function supportsSubscriptions(): bool
+    {
+        return true;
+    }
+
+    public function createSubscription(string $customerId, float $amount, array $options = []): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $trialDays = $options['trial_days'] ?? 14;
+            $planName = $options['plan_name'] ?? 'Subscription';
+
+            // Create plan first
+            $planResult = $this->gateway->plan()->create([
+                'name' => $planName,
+                'description' => $options['plan_description'] ?? '',
+                'price' => number_format($amount, 2, '.', ''),
+                'currencyIsoCode' => 'USD',
+                'billingFrequency' => $options['interval'] === 'year' ? 12 : 1,
+                'trialPeriod' => $trialDays > 0,
+                'trialDuration' => $trialDays,
+                'trialDurationUnit' => 'day',
+            ]);
+
+            if (!$planResult->success) {
+                return [
+                    'success' => false,
+                    'error' => $planResult->message ?? 'Failed to create plan',
+                    'gateway' => $this->getIdentifier(),
+                ];
+            }
+
+            // Create subscription
+            $result = $this->gateway->subscription()->create([
+                'paymentMethodToken' => $customerId,
+                'planId' => $planResult->plan->id,
+            ]);
+
+            if ($result->success) {
+                return [
+                    'success' => true,
+                    'id' => $result->subscription->id,
+                    'status' => strtolower($result->subscription->status),
+                    'trial_end' => $trialDays > 0 ? date('Y-m-d H:i:s', strtotime("+{$trialDays} days")) : null,
+                    'current_period_start' => $result->subscription->billingPeriodStartDate ?? null,
+                    'current_period_end' => $result->subscription->billingPeriodEndDate ?? null,
+                    'gateway' => $this->getIdentifier(),
+                ];
+            }
+
+            return [
+                'success' => false,
+                'error' => $result->message ?? 'Failed to create subscription',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function cancelSubscription(string $subscriptionId, bool $cancelImmediately = false): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $result = $this->gateway->subscription()->cancel($subscriptionId);
+
+            return [
+                'success' => $result->success,
+                'id' => $subscriptionId,
+                'status' => 'canceled',
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
+
+    public function resumeSubscription(string $subscriptionId): array
+    {
+        // Braintree doesn't support resuming canceled subscriptions directly
+        // A new subscription must be created
+        return [
+            'success' => false,
+            'error' => 'Braintree requires creating a new subscription to resume',
+            'gateway' => $this->getIdentifier(),
+        ];
+    }
+
+    public function retrieveSubscription(string $subscriptionId): array
+    {
+        if (!$this->isConfigured()) {
+            return [
+                'success' => false,
+                'error' => 'Gateway not configured',
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+
+        try {
+            $subscription = $this->gateway->subscription()->find($subscriptionId);
+
+            return [
+                'success' => true,
+                'id' => $subscription->id,
+                'status' => strtolower($subscription->status),
+                'current_period_start' => $subscription->billingPeriodStartDate ?? null,
+                'current_period_end' => $subscription->billingPeriodEndDate ?? null,
+                'gateway' => $this->getIdentifier(),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'gateway' => $this->getIdentifier(),
+            ];
+        }
+    }
 }

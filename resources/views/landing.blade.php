@@ -990,7 +990,7 @@
                         <li><i class="fas fa-check-circle"></i> Custom Templates</li>
                         <li><i class="fas fa-check-circle"></i> PDF Ballots</li>
                     </ul>
-                    <a href="{{ route('subscription.pricing') }}" class="btn btn-pricing btn-pricing-outline">Get Started Free</a>
+                    <a href="{{ route('register', ['plan' => 'free']) }}" class="btn btn-pricing btn-pricing-outline">Get Trial Code</a>
                 </div>
 
                 <!-- Non-Profit -->
@@ -1006,7 +1006,7 @@
                         <li><i class="fas fa-check-circle"></i> PDF Ballots</li>
                         <li><i class="fas fa-check-circle"></i> Email Support</li>
                     </ul>
-                    <a href="{{ route('subscription.pricing') }}" class="btn btn-pricing btn-pricing-outline">Start Free Trial</a>
+                    <a href="{{ route('register', ['plan' => 'nonprofit']) }}" class="btn btn-pricing btn-pricing-outline">Start Plan</a>
                 </div>
 
                 <!-- Professional -->
@@ -1022,7 +1022,7 @@
                         <li><i class="fas fa-check-circle"></i> Advanced Analytics</li>
                         <li><i class="fas fa-check-circle"></i> Priority Support</li>
                     </ul>
-                    <a href="{{ route('subscription.pricing') }}" class="btn btn-pricing btn-pricing-primary">Start Free Trial</a>
+                    <a href="{{ route('register', ['plan' => 'professional']) }}" class="btn btn-pricing btn-pricing-primary">Start Plan</a>
                 </div>
 
                 <!-- Premium -->
@@ -1038,7 +1038,7 @@
                         <li><i class="fas fa-check-circle"></i> Custom Integrations</li>
                         <li><i class="fas fa-check-circle"></i> Dedicated Support</li>
                     </ul>
-                    <a href="{{ route('subscription.pricing') }}" class="btn btn-pricing btn-pricing-outline">Contact Sales</a>
+                    <a href="{{ route('register', ['plan' => 'premium']) }}" class="btn btn-pricing btn-pricing-outline">Start Plan</a>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 40px;">

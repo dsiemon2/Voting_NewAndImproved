@@ -136,4 +136,51 @@ interface PaymentGatewayInterface
      * @return array Configuration needed for frontend integration
      */
     public function getFrontendConfig(): array;
+
+    /**
+     * Create a subscription with optional trial period
+     *
+     * @param string $customerId Gateway customer ID
+     * @param float $amount Monthly amount in dollars
+     * @param array $options Options including:
+     *   - trial_days: int Number of trial days (default 14)
+     *   - interval: string 'month' or 'year'
+     *   - metadata: array Additional metadata
+     *   - plan_name: string Name of the plan
+     *   - plan_description: string Description of the plan
+     * @return array Subscription data with id, status, trial_end, etc.
+     */
+    public function createSubscription(string $customerId, float $amount, array $options = []): array;
+
+    /**
+     * Cancel a subscription
+     *
+     * @param string $subscriptionId The subscription ID
+     * @param bool $cancelImmediately If false, cancels at period end
+     * @return array Cancellation result
+     */
+    public function cancelSubscription(string $subscriptionId, bool $cancelImmediately = false): array;
+
+    /**
+     * Resume a canceled subscription (before period ends)
+     *
+     * @param string $subscriptionId The subscription ID
+     * @return array Resume result
+     */
+    public function resumeSubscription(string $subscriptionId): array;
+
+    /**
+     * Retrieve subscription details
+     *
+     * @param string $subscriptionId The subscription ID
+     * @return array Subscription data
+     */
+    public function retrieveSubscription(string $subscriptionId): array;
+
+    /**
+     * Check if gateway supports recurring/subscription payments
+     *
+     * @return bool
+     */
+    public function supportsSubscriptions(): bool;
 }

@@ -55,7 +55,7 @@
         }
 
         .navbar-brand img {
-            height: 40px;
+            height: 110px;
         }
 
         .navbar-brand span {

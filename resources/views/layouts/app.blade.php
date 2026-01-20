@@ -688,7 +688,7 @@
         <div class="top-header-wrapper">
             <header class="top-header">
                 <div class="logo">
-                    <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="Logo" style="height: 50px;">
+                    <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="Logo" style="height: 110px;">
                     <span>My Voting Software</span>
                 </div>
                 <div class="user-info">

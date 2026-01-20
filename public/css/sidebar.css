@@ -19,7 +19,7 @@
 
 /* Custom Scrollbar */
 .sidebar::-webkit-scrollbar {
-    width: 6px;
+    width: 12px;
 }
 
 .sidebar::-webkit-scrollbar-track {

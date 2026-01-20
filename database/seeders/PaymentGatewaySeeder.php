@@ -12,17 +12,16 @@ class PaymentGatewaySeeder extends Seeder
      */
     public function run(): void
     {
-        // Stripe - Enabled by default
-        // Configure in .env file:
-        //   STRIPE_PUBLISHABLE_KEY=pk_test_...
-        //   STRIPE_SECRET_KEY=sk_test_...
+        // Stripe - Configure in .env file:
+        //   STRIPE_PUBLISHABLE_KEY=pk_live_...
+        //   STRIPE_SECRET_KEY=sk_live_...
         PaymentGateway::updateOrCreate(
             ['provider' => 'stripe'],
             [
                 'is_enabled' => true,
                 'publishable_key' => env('STRIPE_PUBLISHABLE_KEY', ''),
                 'secret_key' => env('STRIPE_SECRET_KEY', ''),
-                'test_mode' => true,
+                'test_mode' => false,
                 'ach_enabled' => false,
             ]
         );

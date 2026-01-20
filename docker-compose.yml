@@ -20,6 +20,10 @@ services:
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
+      - DB_HOST=db
+      - DB_PORT=3306
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
 
   # Nginx Web Server - PORT 8100
   webserver:
@@ -75,6 +79,11 @@ services:
     command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
     volumes:
       - ./:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     networks:
       - voting_network
     depends_on:

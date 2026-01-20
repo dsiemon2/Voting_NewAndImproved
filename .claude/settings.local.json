@@ -44,7 +44,10 @@
       "Bash(git push:*)",
       "Bash(docker logs:*)",
       "Bash(docker-compose ps:*)",
-      "Bash(docker-compose logs:*)"
+      "Bash(docker-compose logs:*)",
+      "Bash(mysql:*)",
+      "Bash(docker volume:*)",
+      "Bash(git reset:*)"
     ]
   }
 }

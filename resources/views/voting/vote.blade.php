@@ -2,6 +2,15 @@
 
 @section('content')
 @php
+    if (!function_exists('ordinal')) {
+        function ordinal($number) {
+            $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+            if (($number % 100) >= 11 && ($number % 100) <= 13) {
+                return $number . 'th';
+            }
+            return $number . $ends[$number % 10];
+        }
+    }
     $divisionTypes = $event->template->getDivisionTypes();
     $placeCount = count($placeConfigs);
 
@@ -522,16 +531,6 @@
         </div>
     </div>
 </div>
-
-@php
-function ordinal($number) {
-    $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
-    if (($number % 100) >= 11 && ($number % 100) <= 13) {
-        return $number . 'th';
-    }
-    return $number . $ends[$number % 10];
-}
-@endphp
 
 <script>
     // Auto-focus on first input

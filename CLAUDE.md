@@ -280,3 +280,88 @@ tail -f storage/logs/laravel.log
 # Clear logs (development only)
 php artisan log:clear
 ```
+
+## Testing
+
+### Test Suite Overview
+The application has a comprehensive test suite with **194 tests** and **355 assertions**.
+
+### Test Files Location
+```
+tests/
+├── Feature/
+│   ├── ApiTest.php              # REST API endpoints
+│   ├── AuthenticationTest.php   # Login, registration, logout
+│   ├── AuthorizationTest.php    # Route permissions
+│   ├── DivisionEntryTest.php    # Division/entry relationships
+│   ├── EventManagementTest.php  # Event CRUD operations
+│   ├── PdfExportTest.php        # PDF generation
+│   ├── ResultsTest.php          # Results calculation
+│   ├── SubscriptionTest.php     # Subscription plans/limits
+│   ├── TemplateModuleTest.php   # Template inheritance
+│   ├── TrialCodeTest.php        # Trial code validation
+│   ├── VotingEdgeCaseTest.php   # Edge cases and limits
+│   └── VotingSystemTest.php     # Core voting functionality
+└── Unit/
+    ├── ImportTest.php           # CSV/Excel import
+    └── VotingTypeTest.php       # Voting type configurations
+```
+
+### Running Tests
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test class
+php artisan test --filter=VotingSystemTest
+
+# Run specific test method
+php artisan test --filter=test_ranked_voting_type
+
+# Run with stop on first failure
+php artisan test --stop-on-failure
+
+# Run in Docker
+docker-compose exec app php artisan test
+```
+
+### Test Database Configuration
+Tests use MySQL (not SQLite) configured in `.env.testing`:
+- Database: `voting_test`
+- Uses `RefreshDatabase` trait for isolation
+- Migrations run automatically before each test
+
+### Test Checklist
+
+#### Voting System
+- [x] Ranked voting (3-2-1, 5-4-3-2-1)
+- [x] Approval voting
+- [x] Rating voting
+- [x] Weighted voting
+- [x] Duplicate vote prevention
+- [x] Division-based voting
+
+#### API Endpoints
+- [x] Cast vote endpoint
+- [x] Get results endpoint
+- [x] Check voted status
+- [x] Get user votes
+- [x] Event listing
+
+#### Authentication
+- [x] Login with valid credentials
+- [x] Login validation errors
+- [x] Registration with plan selection
+- [x] Logout functionality
+
+#### PDF Export
+- [x] Ballot PDF generation
+- [x] Results PDF generation
+- [x] Certificate PDF generation
+- [x] Entries list PDF
+
+#### Subscriptions
+- [x] Plan feature checking
+- [x] Unlimited resource detection
+- [x] User subscription creation
+- [x] Plan pricing tiers

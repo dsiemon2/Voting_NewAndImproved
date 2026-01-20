@@ -315,6 +315,57 @@ GET /api/results/{event}/leaderboard - Get leaderboard
 | User | Voting, Results only |
 | Judge | Weighted voting |
 
+## Testing
+
+The application includes a comprehensive test suite with 194 tests covering all major functionality.
+
+### Test Categories
+
+| Category | Tests | Description |
+|----------|-------|-------------|
+| VotingSystemTest | 8 | Core voting functionality, multiple voting types |
+| VotingTypeTest | 7 | Voting type configurations and point systems |
+| ApiTest | 14 | REST API endpoints for voting and results |
+| AuthenticationTest | 15 | Login, registration, logout, validation |
+| AuthorizationTest | 22 | Route access and role-based permissions |
+| EventManagementTest | 12 | Event CRUD, voting time windows |
+| VotingEdgeCaseTest | 10 | Time windows, approval voting, rating limits |
+| DivisionEntryTest | 10 | Division and entry relationships |
+| PdfExportTest | 13 | PDF generation for ballots, results, certificates |
+| ImportTest | 11 | CSV/Excel import functionality |
+| SubscriptionTest | 13 | Subscription plans, limits, features |
+| TrialCodeTest | 6 | Trial code generation and validation |
+| TemplateModuleTest | 13 | Event templates and module overrides |
+| ResultsTest | 11 | Results calculation, ties, sorting |
+
+### Running Tests
+
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test file
+php artisan test --filter=VotingSystemTest
+
+# Run with coverage
+php artisan test --coverage
+
+# Run tests in Docker
+docker-compose exec app php artisan test
+```
+
+### Test Database
+
+Tests use a separate MySQL database (`voting_test`) configured in `.env.testing`. The test database is automatically migrated before each test run using the `RefreshDatabase` trait.
+
+```bash
+# Create test database (run once)
+docker exec voting_db mysql -u root -proot_secret -e "CREATE DATABASE IF NOT EXISTS voting_test; GRANT ALL PRIVILEGES ON voting_test.* TO 'voting_user'@'%'; FLUSH PRIVILEGES;"
+
+# Run migrations on test database
+php artisan migrate --env=testing
+```
+
 ## Contributing
 
 1. Create a feature branch

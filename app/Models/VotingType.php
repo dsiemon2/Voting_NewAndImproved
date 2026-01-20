@@ -68,6 +68,14 @@ class VotingType extends Model
     }
 
     /**
+     * Get place configurations (alias for getPlacesArray)
+     */
+    public function getPlaceConfigs(): array
+    {
+        return $this->getPlacesArray();
+    }
+
+    /**
      * Get number of places for this voting type
      */
     public function getPlaceCount(): int

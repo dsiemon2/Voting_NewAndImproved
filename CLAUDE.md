@@ -1,4 +1,12 @@
-# Voting Application - Project Requirements
+# Voting Application - Project Reference
+
+**Type:** Laravel Voting Platform
+**Port:** Docker (varies)
+**Status:** Active (Development)
+**Live URL:** https://www.votigopro.com
+**Last Updated:** 2026-01-19
+
+---
 
 ## Overview
 This is a Laravel 11 rebuild of the legacy PHP voting application at `C:\xampp\htdocs\vote_TGBO`.
@@ -216,3 +224,59 @@ Configured in `/admin/payment-processing`:
 - **Braintree** - 2.59% + 49c
 - **Square** - 2.6% + 10c
 - **Authorize.net** - 2.9% + 30c
+
+## Logging
+
+Laravel 11 built-in logging with Monolog:
+
+### Features
+- **Multiple Channels**: Stack, single, daily, slack, syslog, errorlog
+- **Daily Rotation**: Automatic log file rotation (default: 14 days)
+- **Log Levels**: emergency, alert, critical, error, warning, notice, info, debug
+- **Environment-based**: Configure via `.env` and `config/logging.php`
+
+### Configuration
+```bash
+# .env file
+LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
+```
+
+### Log Files Location
+```
+storage/logs/
+└── laravel.log  # Main application log
+```
+
+### Usage
+```php
+use Illuminate\Support\Facades\Log;
+
+// Standard logging
+Log::info('User logged in', ['user_id' => $user->id]);
+Log::error('Payment failed', ['error' => $exception->getMessage()]);
+Log::debug('Processing vote', ['event_id' => $eventId, 'entries' => $entries]);
+
+// Channel-specific logging
+Log::channel('slack')->critical('Server overloaded');
+```
+
+### Log Levels (in order of severity)
+1. `emergency` - System is unusable
+2. `alert` - Action must be taken immediately
+3. `critical` - Critical conditions
+4. `error` - Error conditions
+5. `warning` - Warning conditions
+6. `notice` - Normal but significant condition
+7. `info` - Informational messages
+8. `debug` - Debug-level messages
+
+### Viewing Logs
+```bash
+# View recent logs
+tail -f storage/logs/laravel.log
+
+# Clear logs (development only)
+php artisan log:clear
+```

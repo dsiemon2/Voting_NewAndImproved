@@ -290,8 +290,7 @@
             <div class="export-card-body">
                 <p>Export voting results as a professionally formatted PDF document with rankings and point totals.</p>
 
-                <form action="#" method="POST" target="_blank">
-                    @csrf
+                <form action="{{ route('admin.events.pdf.results', $event) }}" method="GET" target="_blank">
                     <input type="hidden" name="event_id" value="{{ $event->id }}">
                     <input type="hidden" name="type" value="results">
 
@@ -331,8 +330,7 @@
             <div class="export-card-body">
                 <p>Generate printable voting ballots for judges and participants with entry numbers and spaces for rankings.</p>
 
-                <form action="#" method="POST" target="_blank">
-                    @csrf
+                <form action="{{ route('admin.events.pdf.ballot', $event) }}" method="GET" target="_blank">
                     <input type="hidden" name="event_id" value="{{ $event->id }}">
                     <input type="hidden" name="type" value="ballots">
 

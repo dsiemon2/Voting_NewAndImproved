@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PdfController extends Controller
 {
@@ -84,7 +85,7 @@ class PdfController extends Controller
         ]);
 
         // Get results data
-        $results = \DB::table('votes')
+        $results = DB::table('votes')
             ->select([
                 'entries.id as entry_id',
                 'entries.name as entry_name',
@@ -94,11 +95,11 @@ class PdfController extends Controller
                 'divisions.code as division_code',
                 'divisions.type as division_type',
                 'participants.name as participant_name',
-                \DB::raw('SUM(votes.final_points) as total_points'),
-                \DB::raw('COUNT(votes.id) as vote_count'),
-                \DB::raw('SUM(CASE WHEN votes.place = 1 THEN 1 ELSE 0 END) as first_place_count'),
-                \DB::raw('SUM(CASE WHEN votes.place = 2 THEN 1 ELSE 0 END) as second_place_count'),
-                \DB::raw('SUM(CASE WHEN votes.place = 3 THEN 1 ELSE 0 END) as third_place_count'),
+                DB::raw('SUM(votes.final_points) as total_points'),
+                DB::raw('COUNT(votes.id) as vote_count'),
+                DB::raw('SUM(CASE WHEN votes.place = 1 THEN 1 ELSE 0 END) as first_place_count'),
+                DB::raw('SUM(CASE WHEN votes.place = 2 THEN 1 ELSE 0 END) as second_place_count'),
+                DB::raw('SUM(CASE WHEN votes.place = 3 THEN 1 ELSE 0 END) as third_place_count'),
             ])
             ->join('entries', 'votes.entry_id', '=', 'entries.id')
             ->leftJoin('divisions', 'entries.division_id', '=', 'divisions.id')
@@ -117,8 +118,10 @@ class PdfController extends Controller
             ->orderByDesc('total_points')
             ->get();
 
-        // Group results by division type
-        $resultsByType = $results->groupBy('division_type');
+        // Group results by division type and sort each group by points descending
+        $resultsByType = $results->groupBy('division_type')->map(function ($group) {
+            return $group->sortByDesc('total_points')->values();
+        });
 
         $pdf = Pdf::loadView('pdf.results', [
             'event' => $event,
@@ -139,13 +142,13 @@ class PdfController extends Controller
         $event->load(['template']);
 
         // Get winner for the specified place
-        $query = \DB::table('votes')
+        $query = DB::table('votes')
             ->select([
                 'entries.name as entry_name',
                 'participants.name as participant_name',
                 'divisions.name as division_name',
                 'divisions.type as division_type',
-                \DB::raw('SUM(votes.final_points) as total_points'),
+                DB::raw('SUM(votes.final_points) as total_points'),
             ])
             ->join('entries', 'votes.entry_id', '=', 'entries.id')
             ->leftJoin('divisions', 'entries.division_id', '=', 'divisions.id')
@@ -235,17 +238,17 @@ class PdfController extends Controller
             'total_divisions' => $event->divisions->count(),
             'total_entries' => $event->entries->count(),
             'total_participants' => $event->entries->pluck('participant_id')->unique()->count(),
-            'total_votes' => \DB::table('votes')->where('event_id', $event->id)->count(),
-            'unique_voters' => \DB::table('votes')->where('event_id', $event->id)->distinct('user_id')->count('user_id'),
+            'total_votes' => DB::table('votes')->where('event_id', $event->id)->count(),
+            'unique_voters' => DB::table('votes')->where('event_id', $event->id)->distinct('user_id')->count('user_id'),
         ];
 
         // Get top 3 per division type
-        $topResults = \DB::table('votes')
+        $topResults = DB::table('votes')
             ->select([
                 'entries.name as entry_name',
                 'divisions.type as division_type',
                 'participants.name as participant_name',
-                \DB::raw('SUM(votes.final_points) as total_points'),
+                DB::raw('SUM(votes.final_points) as total_points'),
             ])
             ->join('entries', 'votes.entry_id', '=', 'entries.id')
             ->leftJoin('divisions', 'entries.division_id', '=', 'divisions.id')

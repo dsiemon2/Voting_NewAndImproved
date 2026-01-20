@@ -367,7 +367,7 @@
                         }
                     }
                 }
-                $typeResults = $typeResults->sortByDesc('total_points');
+                $typeResults = $typeResults->sortByDesc('total_points')->values();
             @endphp
             <div class="results-box">
                 <div class="results-box-header">
@@ -459,7 +459,7 @@
                     </thead>
                     <tbody>
                         @php
-                            $allResults = collect($resultsByDivision)->flatten(1)->sortByDesc('total_points');
+                            $allResults = collect($resultsByDivision)->flatten(1)->sortByDesc('total_points')->values();
                         @endphp
                         @forelse($allResults as $index => $result)
                             <tr class="{{ $index < 3 ? 'winner' : '' }}">

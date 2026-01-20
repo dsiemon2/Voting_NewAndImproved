@@ -27,8 +27,10 @@ class ResultsController extends Controller
         $divisions = $this->divisionRepository->getActiveByEvent($event->id);
         $results = $this->votingService->getResults($event);
 
-        // Group results by division
-        $resultsByDivision = $results->groupBy('division_id');
+        // Group results by division, sorted by points within each
+        $resultsByDivision = $results->groupBy('division_id')->map(function ($group) {
+            return $group->sortByDesc('total_points')->values();
+        });
 
         // Group divisions by type for display
         $divisionsByType = $divisions->groupBy(function($division) {
@@ -86,7 +88,9 @@ class ResultsController extends Controller
 
         $divisions = $this->divisionRepository->getActiveByEvent($event->id);
         $results = $this->votingService->getResults($event);
-        $resultsByDivision = $results->groupBy('division_id');
+        $resultsByDivision = $results->groupBy('division_id')->map(function ($group) {
+            return $group->sortByDesc('total_points')->values();
+        });
 
         return view('results.live', [
             'event' => $event,
@@ -140,7 +144,9 @@ class ResultsController extends Controller
 
         $divisions = $this->divisionRepository->getActiveByEvent($event->id);
         $results = $this->votingService->getResults($event);
-        $resultsByDivision = $results->groupBy('division_id');
+        $resultsByDivision = $results->groupBy('division_id')->map(function ($group) {
+            return $group->sortByDesc('total_points')->values();
+        });
 
         return view('results.public', [
             'event' => $event,

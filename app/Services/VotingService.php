@@ -37,6 +37,13 @@ class VotingService
             ]);
         }
 
+        // Check if user has already voted
+        if ($this->hasUserVoted($user, $event)) {
+            throw ValidationException::withMessages([
+                'voting' => 'You have already voted in this event.',
+            ]);
+        }
+
         // Get user's weight multiplier
         $weightMultiplier = $user->getWeightForEvent($event);
 
@@ -244,12 +251,10 @@ class VotingService
     /**
      * Find entry by division type code and user input number
      *
-     * Legacy system logic:
-     * - User enters "1" in Professional box → Look up division "P1" → Get entry for that division
-     * - User enters "1" in Amateur box → Look up division "A1" → Get entry for that division
-     *
-     * The division code IS the identifier (P1, P2, A1, A2, etc.)
-     * Each division has ONE entry associated with it.
+     * Supports multiple lookup strategies:
+     * 1. Legacy format: typeCode + number = division code (P1, A1, etc.)
+     * 2. Entry number within type: Find entry by entry_number within divisions of matching type
+     * 3. Direct entry number: Find entry by entry_number regardless of division type
      */
     private function findEntryByTypeAndNumber(Event $event, string $typeCode, mixed $input): ?Entry
     {
@@ -259,15 +264,47 @@ class VotingService
 
         $userInput = (int) $input;
 
-        // Build division code: typeCode + userInput (e.g., 'P' + '1' = 'P1', 'A' + '1' = 'A1')
+        // Strategy 1: Try legacy format (typeCode + number = P1, A1, etc.)
         $divisionCode = strtoupper($typeCode) . $userInput;
-
-        // Find entry by division code
-        // This matches legacy system: lookupDivision($conn, $prefix, $number, $eventId)
         $entry = Entry::where('event_id', $event->id)
             ->whereHas('division', function ($query) use ($divisionCode) {
                 $query->where('code', $divisionCode);
             })
+            ->first();
+
+        if ($entry) {
+            return $entry;
+        }
+
+        // Strategy 2: Find by entry_number within divisions of the given type
+        // Get the type name from the template's division_types by code
+        $template = $event->template;
+        $divisionTypes = $template->getDivisionTypes();
+        $typeName = null;
+
+        foreach ($divisionTypes as $dt) {
+            if (strtoupper($dt['code']) === strtoupper($typeCode)) {
+                $typeName = $dt['name'];
+                break;
+            }
+        }
+
+        if ($typeName) {
+            $entry = Entry::where('event_id', $event->id)
+                ->where('entry_number', $userInput)
+                ->whereHas('division', function ($query) use ($typeName) {
+                    $query->where('type', $typeName);
+                })
+                ->first();
+
+            if ($entry) {
+                return $entry;
+            }
+        }
+
+        // Strategy 3: Direct entry number lookup (for events without division types)
+        $entry = Entry::where('event_id', $event->id)
+            ->where('entry_number', $userInput)
             ->first();
 
         return $entry;

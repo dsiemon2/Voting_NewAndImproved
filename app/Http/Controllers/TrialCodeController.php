@@ -74,7 +74,7 @@ class TrialCodeController extends Controller
     /**
      * Validate a trial code (AJAX endpoint)
      */
-    public function validate(Request $request)
+    public function validateCode(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|max:10',

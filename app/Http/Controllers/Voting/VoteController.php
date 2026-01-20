@@ -41,9 +41,11 @@ class VoteController extends Controller
             $placeConfigs[$config['place']] = $config['points'];
         }
 
-        // Get voting results for display
+        // Get voting results for display, sorted by points within each division
         $results = $this->votingService->getResults($event);
-        $resultsByDivision = $results->groupBy('division_id');
+        $resultsByDivision = $results->groupBy('division_id')->map(function ($group) {
+            return $group->sortByDesc('total_points')->values();
+        });
 
         // Check if user has already voted
         $hasVoted = auth()->check()

@@ -41,7 +41,7 @@ Route::get('/', function () {
 // Trial Code Routes (Public AJAX endpoints)
 Route::prefix('trial-code')->name('trial-code.')->group(function () {
     Route::post('/request', [TrialCodeController::class, 'request'])->name('request');
-    Route::post('/validate', [TrialCodeController::class, 'validate'])->name('validate');
+    Route::post('/validate', [TrialCodeController::class, 'validateCode'])->name('validate');
     Route::post('/resend', [TrialCodeController::class, 'resend'])->name('resend');
 });
 

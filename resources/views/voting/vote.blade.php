@@ -419,7 +419,7 @@
                             }
                         }
                     }
-                    $typeResults = $typeResults->sortByDesc('total_points');
+                    $typeResults = $typeResults->sortByDesc('total_points')->values();
                 @endphp
                 <div class="results-box">
                     <div class="results-box-header">
@@ -476,7 +476,7 @@
                         $allResults->push($result);
                     }
                 }
-                $allResults = $allResults->sortByDesc('total_points');
+                $allResults = $allResults->sortByDesc('total_points')->values();
             @endphp
             <div class="results-box" style="flex: 100%;">
                 <div class="results-box-header">

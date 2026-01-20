@@ -4,6 +4,7 @@ namespace App\Services\Payments;
 
 use App\Contracts\PaymentGatewayInterface;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 /**
  * PayPal Payment Gateway Implementation

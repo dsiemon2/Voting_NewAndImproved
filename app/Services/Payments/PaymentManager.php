@@ -5,6 +5,7 @@ namespace App\Services\Payments;
 use App\Contracts\PaymentGatewayInterface;
 use App\Models\PaymentGateway;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Payment Manager - Factory for payment services

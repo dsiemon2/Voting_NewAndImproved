@@ -10,6 +10,7 @@ use Square\Models\Money;
 use Square\Models\RefundPaymentRequest;
 use Square\Models\CreateCustomerRequest;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Square Payment Gateway Implementation

@@ -14,6 +14,7 @@ use Stripe\Product;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\SignatureVerificationException;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Stripe Payment Gateway Implementation

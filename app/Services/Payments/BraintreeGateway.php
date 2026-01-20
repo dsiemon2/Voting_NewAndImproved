@@ -6,6 +6,7 @@ use App\Contracts\PaymentGatewayInterface;
 use Braintree\Gateway;
 use Braintree\Exception as BraintreeException;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Braintree Payment Gateway Implementation

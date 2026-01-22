@@ -25,13 +25,13 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
 
-  # Nginx Web Server - PORT 8100
+  # Nginx Web Server - PORT 8500
   webserver:
     image: nginx:alpine
     container_name: voting_webserver
     restart: unless-stopped
     ports:
-      - "8100:80"
+      - "8500:80"
     volumes:
       - ./:/var/www/html
       - ./docker/nginx/conf.d:/etc/nginx/conf.d

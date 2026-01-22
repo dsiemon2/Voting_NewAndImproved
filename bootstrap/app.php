@@ -12,6 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Exempt AI chat API routes from CSRF verification
+        $middleware->validateCsrfTokens(except: [
+            'api/ai-chat',
+            'api/ai-chat/*',
+        ]);
+
         $middleware->alias([
             'role' => \App\Http\Middleware\CheckRole::class,
             'event.active' => \App\Http\Middleware\EnsureEventActive::class,

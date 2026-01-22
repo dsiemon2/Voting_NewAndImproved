@@ -47,7 +47,12 @@
       "Bash(docker-compose logs:*)",
       "Bash(mysql:*)",
       "Bash(docker volume:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(del \"C:\\\\Users\\\\dsiem\\\\Downloads\\\\AI Digital Assistants\\\\Voting_NewAndImproved\\\\database\\\\migrations\\\\2026_01_19_210000_create_system_settings_table.php\")",
+      "Bash(cmd /c \"del \"\"C:\\\\Users\\\\dsiem\\\\Downloads\\\\AI Digital Assistants\\\\Voting_NewAndImproved\\\\database\\\\migrations\\\\2026_01_19_210000_create_system_settings_table.php\"\"\")",
+      "Bash(cmd /c \"mkdir \"\"C:\\\\Users\\\\dsiem\\\\Downloads\\\\AI Digital Assistants\\\\Voting_NewAndImproved\\\\database\\\\factories\"\"\")",
+      "Bash(docker-compose restart:*)",
+      "Bash(docker compose exec:*)"
     ]
   }
 }

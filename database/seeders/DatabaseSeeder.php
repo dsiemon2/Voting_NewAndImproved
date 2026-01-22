@@ -23,10 +23,18 @@ class DatabaseSeeder extends Seeder
 
         // Call additional seeders
         $this->call([
+            // Core system seeders
             AiAgentSeeder::class,
             WebhookSeeder::class,
             AiToolSeeder::class,
             TwilioSettingsSeeder::class,
+            SubscriptionPlanSeeder::class,
+            PaymentGatewaySeeder::class,
+
+            // Sample data seeders
+            OldDatabaseSeeder::class,           // Creates Soup Cookoff & Great Bakeoff
+            ComprehensiveSampleSeeder::class,   // Creates 12 more sample events
+            TrialCodeSeeder::class,             // Creates sample trial codes
         ]);
     }
 

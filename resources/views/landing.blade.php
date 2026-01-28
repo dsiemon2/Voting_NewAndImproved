@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Voting Software - Professional Event Voting Made Simple</title>
+    <title>VotigoPro - Professional Event Voting Made Simple</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -782,8 +782,8 @@
     <nav class="navbar">
         <div class="container">
             <a href="/" class="navbar-brand">
-                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="My Voting Software Logo">
-                <span>My Voting Software</span>
+                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="VotigoPro Logo">
+                <span>VotigoPro</span>
             </a>
             <ul class="navbar-nav">
                 <li><a href="#features">Features</a></li>
@@ -883,7 +883,7 @@
     <section class="features-section" id="features">
         <div class="section-container">
             <div class="section-header">
-                <h2>Why Choose My Voting Software?</h2>
+                <h2>Why Choose VotigoPro?</h2>
                 <p>Everything you need to run professional voting events</p>
             </div>
             <div class="features-grid">
@@ -1055,7 +1055,7 @@
                     <h2 style="font-size: 2rem; color: var(--primary-dark); margin-bottom: 20px;">Built for Event Organizers</h2>
                     <p style="color: #6b7280; line-height: 1.8; margin-bottom: 20px;">
                         We've been there - managing voting for cookoffs, contests, and competitions with paper ballots and spreadsheets.
-                        That's why we built My Voting Software.
+                        That's why we built VotigoPro.
                     </p>
                     <p style="color: #6b7280; line-height: 1.8; margin-bottom: 30px;">
                         Our platform handles everything from participant registration to real-time result tallying,
@@ -1098,7 +1098,7 @@
     <footer class="footer">
         <div class="footer-grid">
             <div class="footer-brand">
-                <h5><i class="fas fa-vote-yea" style="color: var(--accent-orange); margin-right: 10px;"></i>My Voting Software</h5>
+                <h5><i class="fas fa-vote-yea" style="color: var(--accent-orange); margin-right: 10px;"></i>VotigoPro</h5>
                 <p>Professional event voting made simple. From cookoffs to talent shows, we make running competitions easy.</p>
             </div>
             <div class="footer-links">
@@ -1120,7 +1120,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} My Voting Software. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} VotigoPro. All rights reserved.</p>
         </div>
     </footer>
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Sign In - My Voting Software</title>
+    <title>Sign In - VotigoPro</title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -343,8 +343,8 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a href="{{ route('home') }}" class="navbar-brand">
-                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="My Voting Software Logo">
-                <span>My Voting Software</span>
+                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="VotigoPro Logo">
+                <span>VotigoPro</span>
             </a>
             <a href="{{ route('home') }}" class="back-link">
                 <i class="fas fa-arrow-left"></i> Back to Home
@@ -357,7 +357,7 @@
         <div class="login-wrapper">
             <!-- Left Side - Branding -->
             <div class="branding-section">
-                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="My Voting Software Logo">
+                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="VotigoPro Logo">
                 <h2>Welcome Back!</h2>
                 <p>Sign in to manage your events, run voting sessions, and view results.</p>
 
@@ -439,7 +439,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        &copy; {{ date('Y') }} My Voting Software. All rights reserved.
+        &copy; {{ date('Y') }} VotigoPro. All rights reserved.
     </footer>
 
     <script>

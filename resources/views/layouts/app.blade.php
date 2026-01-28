@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? config('app.name', 'My Voting Software') }}</title>
+    <title>{{ $title ?? config('app.name', 'VotigoPro') }}</title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -689,7 +689,7 @@
             <header class="top-header">
                 <div class="logo">
                     <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="Logo" style="height: 110px;">
-                    <span>My Voting Software</span>
+                    <span>VotigoPro</span>
                 </div>
                 <div class="user-info">
                     <span><i class="fas fa-user"></i> {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>

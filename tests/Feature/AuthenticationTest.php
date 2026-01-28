@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\SubscriptionPlan;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -16,6 +18,11 @@ class AuthenticationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->withoutMiddleware([
+            VerifyCsrfToken::class,
+            ValidateCsrfToken::class,
+        ]);
 
         // Create required roles
         Role::firstOrCreate(
@@ -65,7 +72,7 @@ class AuthenticationTest extends TestCase
             'role_id' => $role->id,
         ]);
 
-        $response = $this->post(route('login'), [
+        $response = $this->post(route('login.submit'), [
             'email' => 'test@example.com',
             'password' => 'password123',
         ]);
@@ -86,7 +93,7 @@ class AuthenticationTest extends TestCase
             'role_id' => $role->id,
         ]);
 
-        $response = $this->post(route('login'), [
+        $response = $this->post(route('login.submit'), [
             'email' => 'test@example.com',
             'password' => 'wrongpassword',
         ]);
@@ -100,7 +107,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_user_cannot_login_with_nonexistent_email(): void
     {
-        $response = $this->post(route('login'), [
+        $response = $this->post(route('login.submit'), [
             'email' => 'nonexistent@example.com',
             'password' => 'password123',
         ]);
@@ -124,7 +131,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_user_can_register_with_valid_data(): void
     {
-        $response = $this->post(route('register'), [
+        $response = $this->post(route('register.submit'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'newuser@example.com',
@@ -154,7 +161,7 @@ class AuthenticationTest extends TestCase
             'role_id' => $role->id,
         ]);
 
-        $response = $this->post(route('register'), [
+        $response = $this->post(route('register.submit'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'existing@example.com',
@@ -170,7 +177,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_registration_fails_with_password_mismatch(): void
     {
-        $response = $this->post(route('register'), [
+        $response = $this->post(route('register.submit'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'newuser@example.com',
@@ -186,7 +193,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_registration_fails_with_short_password(): void
     {
-        $response = $this->post(route('register'), [
+        $response = $this->post(route('register.submit'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'newuser@example.com',
@@ -223,7 +230,7 @@ class AuthenticationTest extends TestCase
             'role_id' => $role->id,
         ]);
 
-        $response = $this->post(route('login'), [
+        $response = $this->post(route('login.submit'), [
             'email' => 'test@example.com',
             'password' => 'password123',
             'remember' => true,
@@ -252,7 +259,7 @@ class AuthenticationTest extends TestCase
             'is_active' => false,
         ]);
 
-        $response = $this->post(route('login'), [
+        $response = $this->post(route('login.submit'), [
             'email' => 'inactive@example.com',
             'password' => 'password123',
         ]);
@@ -267,7 +274,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_registration_requires_all_fields(): void
     {
-        $response = $this->post(route('register'), []);
+        $response = $this->post(route('register.submit'), []);
 
         $response->assertSessionHasErrors(['first_name', 'last_name', 'email', 'password']);
     }
@@ -277,7 +284,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_registration_requires_valid_email(): void
     {
-        $response = $this->post(route('register'), [
+        $response = $this->post(route('register.submit'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'not-an-email',
@@ -293,7 +300,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_registration_with_free_plan_creates_subscription(): void
     {
-        $response = $this->post(route('register'), [
+        $response = $this->post(route('register.submit'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'planuser@example.com',

@@ -120,8 +120,7 @@ jobs:
           DB_DATABASE: testing
           DB_USERNAME: root
           DB_PASSWORD: password
-        run: php artisan test --parallel
-        continue-on-error: true
+        run: php artisan test
 
       - name: Upload test results
         uses: actions/upload-artifact@v4

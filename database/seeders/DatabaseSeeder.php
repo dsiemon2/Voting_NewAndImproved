@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         // Call additional seeders
         $this->call([
             // Core system seeders
+            AiLanguageSeeder::class,
+            AiDataSeeder::class,
             AiAgentSeeder::class,
             WebhookSeeder::class,
             AiToolSeeder::class,

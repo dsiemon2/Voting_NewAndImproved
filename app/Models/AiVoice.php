@@ -96,6 +96,14 @@ class AiVoice extends Model
                     'color' => '#0dcaf0',
                     'accent' => 'American English',
                 ],
+                [
+                    'id' => 'nova',
+                    'name' => 'Nova',
+                    'description' => 'Warm & patient',
+                    'detail' => 'Best for guidance',
+                    'color' => '#d63384',
+                    'accent' => 'American English',
+                ],
             ],
         ];
     }

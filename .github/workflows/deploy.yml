@@ -44,6 +44,9 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
+      - name: Create required directories
+        run: mkdir -p bootstrap/cache storage/framework/{sessions,views,cache}
+
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
@@ -87,6 +90,9 @@ jobs:
           php-version: ${{ env.PHP_VERSION }}
           extensions: mbstring, xml, ctype, json, bcmath, curl, pdo_mysql
           coverage: xdebug
+
+      - name: Create required directories
+        run: mkdir -p bootstrap/cache storage/framework/{sessions,views,cache}
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
@@ -143,6 +149,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
+
+      - name: Create required directories
+        run: mkdir -p bootstrap/cache storage/framework/{sessions,views,cache}
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader

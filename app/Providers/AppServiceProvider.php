@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Force HTTPS (behind SSL-terminating proxy)
+        URL::forceScheme("https");
         // Prevent lazy loading in development
         Model::preventLazyLoading(!$this->app->isProduction());
 

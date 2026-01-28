@@ -16,33 +16,33 @@ export default {
                 sans: ['Arial', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                // Primary Blue Theme (from style_new.css)
+                // Primary Green Theme (VotigoPro logo)
                 primary: {
-                    50: '#eff6ff',
-                    100: '#dbeafe',
-                    200: '#bfdbfe',
-                    300: '#93c5fd',
-                    400: '#60a5fa',
-                    500: '#3b82f6',  // sidebar links
-                    600: '#2563eb',  // main blue, nav bar
-                    700: '#1d4ed8',  // hover states
-                    800: '#1e40af',  // sidebar, buttons
-                    900: '#1e3a8a',  // header
-                    950: '#172554',
+                    50: '#e8f5ee',
+                    100: '#d4f0e0',
+                    200: '#b8e6cc',
+                    300: '#82d4a8',
+                    400: '#4cbe7e',
+                    500: '#2eaa5e',  // sidebar links
+                    600: '#0d7a3e',  // main green, nav bar
+                    700: '#0a6632',  // hover states
+                    800: '#0d6e38',  // sidebar, buttons
+                    900: '#064e2b',  // header
+                    950: '#043a20',
                 },
-                // Secondary Orange Theme (from style.css)
+                // Secondary Amber/Orange Theme (VotigoPro logo bars)
                 secondary: {
-                    50: '#fff7ed',
-                    100: '#ffedd5',
-                    200: '#fed7aa',
-                    300: '#fdba74',
-                    400: '#fb923c',
-                    500: '#f97316',
-                    600: '#ff6600',  // orange buttons
-                    700: '#ea580c',
-                    800: '#c2410c',
-                    900: '#9a3412',
-                    950: '#431407',
+                    50: '#fef9e7',
+                    100: '#fdefc4',
+                    200: '#fce08d',
+                    300: '#f9c846',
+                    400: '#f7b731',
+                    500: '#f39c12',
+                    600: '#f39c12',  // orange buttons
+                    700: '#d68910',
+                    800: '#b7760e',
+                    900: '#8a5a0a',
+                    950: '#5c3c07',
                 },
                 // Voting page colors (from Voting_Results.php)
                 voting: {

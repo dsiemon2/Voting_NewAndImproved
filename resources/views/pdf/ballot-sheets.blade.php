@@ -55,7 +55,7 @@
         }
         .voting-section h3 {
             font-size: 10px;
-            color: #1e40af;
+            color: #0d6e38;
             background: #f0f4ff;
             padding: 4px 6px;
             margin-bottom: 6px;

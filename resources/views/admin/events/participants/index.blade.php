@@ -356,8 +356,8 @@
     }
 
     .page-link.active {
-        background: #1e40af;
-        border-color: #1e40af;
+        background: #0d6e38;
+        border-color: #0d6e38;
         color: white;
     }
 

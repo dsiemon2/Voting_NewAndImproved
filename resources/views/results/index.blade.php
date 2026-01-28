@@ -28,7 +28,7 @@
 
     .event-header {
         text-align: center;
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
         color: white;
         padding: 30px;
         border-radius: 10px;
@@ -74,7 +74,7 @@
     }
 
     .action-bar .info-item i {
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
 
     .action-bar .actions {
@@ -83,7 +83,7 @@
     }
 
     .btn-export {
-        background: #ff6600;
+        background: #f39c12;
         color: white;
         border: none;
         padding: 10px 20px;
@@ -167,7 +167,7 @@
     }
 
     .results-table th {
-        background: #1e3a8a;
+        background: #1a3a5c;
         color: white;
         padding: 12px 10px;
         text-align: left;
@@ -234,7 +234,7 @@
     }
 
     .points-badge {
-        background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+        background: linear-gradient(135deg, #f39c12 0%, #ff8533 100%);
         color: white;
         padding: 4px 12px;
         border-radius: 15px;

@@ -38,7 +38,7 @@
                     <tr>
                         <td data-label="#"><strong>{{ $divisions->firstItem() + $index }}</strong></td>
                         <td data-label="Division">
-                            <strong style="color: #1e40af;">{{ $division->code }}</strong>
+                            <strong style="color: #0d6e38;">{{ $division->code }}</strong>
                             <span class="mobile-subtitle">{{ $division->type ?? $division->name }}</span>
                         </td>
                         <td data-label="Description" class="hide-tablet">{{ $division->type ?? $division->name }}</td>
@@ -447,8 +447,8 @@
     }
 
     .page-link.active {
-        background: #1e40af;
-        border-color: #1e40af;
+        background: #0d6e38;
+        border-color: #0d6e38;
         color: white;
     }
 
@@ -488,7 +488,7 @@
         align-items: center;
         padding: 20px;
         border-bottom: 1px solid #e5e7eb;
-        background: #1e3a8a;
+        background: #1a3a5c;
         color: white;
         border-radius: 8px 8px 0 0;
     }

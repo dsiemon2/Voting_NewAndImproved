@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="template-card" onclick="useTemplate(this)">
-                    <h6><i class="fas fa-info-circle" style="color: #2563eb;"></i> Informative</h6>
+                    <h6><i class="fas fa-info-circle" style="color: #0d7a3e;"></i> Informative</h6>
                     <p class="template-text">Welcome to the Voting System! I can help you with: viewing event details, checking voting results, finding participant information, and understanding voting rules. How may I assist you?</p>
                 </div>
 
@@ -136,7 +136,7 @@
         align-items: center;
         gap: 12px;
         padding: 15px;
-        background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #0d6e38 0%, #0d7a3e 100%);
         color: white;
     }
     .chat-avatar {
@@ -179,7 +179,7 @@
         height: 40px;
         border-radius: 50%;
         border: none;
-        background: #2563eb;
+        background: #0d7a3e;
         color: white;
         cursor: pointer;
     }
@@ -198,7 +198,7 @@
     }
     .template-card h6 {
         margin: 0 0 10px 0;
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
     .template-card .template-text {
         margin: 0;

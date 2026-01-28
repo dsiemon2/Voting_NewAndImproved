@@ -32,7 +32,7 @@
     }
 
     .breadcrumb a {
-        color: #1e3a8a;
+        color: #1a3a5c;
         text-decoration: none;
     }
 
@@ -67,11 +67,11 @@
     }
 
     .export-card-icon.results {
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
     }
 
     .export-card-icon.ballots {
-        background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+        background: linear-gradient(135deg, #f39c12 0%, #ff8533 100%);
     }
 
     .export-card-icon i {
@@ -118,7 +118,7 @@
         margin-right: 12px;
         width: 18px;
         height: 18px;
-        accent-color: #1e3a8a;
+        accent-color: #1a3a5c;
     }
 
     .export-option .option-label {
@@ -148,7 +148,7 @@
     }
 
     .btn-export.results {
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
         color: white;
     }
 
@@ -158,7 +158,7 @@
     }
 
     .btn-export.ballots {
-        background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+        background: linear-gradient(135deg, #f39c12 0%, #ff8533 100%);
         color: white;
     }
 
@@ -197,7 +197,7 @@
     }
 
     .preview-table th {
-        background: #1e3a8a;
+        background: #1a3a5c;
         color: white;
         padding: 12px;
         text-align: left;
@@ -248,7 +248,7 @@
     }
 
     .back-link:hover {
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
 
     @media print {
@@ -413,11 +413,11 @@
                     <i class="fas fa-inbox"></i>
                     <p>No entries found for this event.</p>
                     <p>
-                        <a href="{{ route('admin.events.entries.index', $event) }}" style="color: #1e3a8a;">
+                        <a href="{{ route('admin.events.entries.index', $event) }}" style="color: #1a3a5c;">
                             Add {{ $event->template->entry_label ?? 'Entries' }}
                         </a>
                         or
-                        <a href="{{ route('admin.events.import', $event) }}" style="color: #1e3a8a;">
+                        <a href="{{ route('admin.events.import', $event) }}" style="color: #1a3a5c;">
                             Import from file
                         </a>
                     </p>

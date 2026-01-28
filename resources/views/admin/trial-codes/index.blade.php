@@ -10,7 +10,7 @@
 
 <!-- Stats Cards -->
 <div class="grid grid-3" style="margin-bottom: 20px;">
-    <div class="card" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white;">
+    <div class="card" style="background: linear-gradient(135deg, #2eaa5e 0%, #0a6632 100%); color: white;">
         <div class="d-flex justify-between align-center">
             <div>
                 <div style="font-size: 12px; opacity: 0.8; text-transform: uppercase;">Total Codes</div>
@@ -93,7 +93,7 @@
                 @forelse($trialCodes as $code)
                 <tr>
                     <td>
-                        <code style="font-size: 14px; font-weight: bold; color: #1e40af;">{{ $code->code }}</code>
+                        <code style="font-size: 14px; font-weight: bold; color: #0d6e38;">{{ $code->code }}</code>
                         <br>
                         <small class="text-muted">
                             <i class="fas fa-{{ $code->delivery_method === 'sms' ? 'sms' : 'envelope' }}"></i>

@@ -16,14 +16,14 @@
 
         <!-- Core Features -->
         <div class="card mb-4">
-            <div class="card-header" style="background: #2563eb; color: white;">
+            <div class="card-header" style="background: #0d7a3e; color: white;">
                 <i class="fas fa-cogs"></i> Core Features
             </div>
             <div class="card-body">
                 <div class="grid grid-2">
                     <div class="feature-toggle">
                         <div>
-                            <h6><i class="fas fa-globe" style="color: #2563eb;"></i> Public Voting</h6>
+                            <h6><i class="fas fa-globe" style="color: #0d7a3e;"></i> Public Voting</h6>
                             <small style="color: #6b7280;">Allow anonymous users to vote without logging in</small>
                         </div>
                         <label class="switch">
@@ -92,7 +92,7 @@
 
         <!-- AI Chat Slider Configuration -->
         <div class="card mb-4">
-            <div class="card-header" style="background: #1e40af; color: white;">
+            <div class="card-header" style="background: #0d6e38; color: white;">
                 <i class="fas fa-robot"></i> AI Chat Slider
             </div>
             <div class="card-body">
@@ -174,7 +174,7 @@
                         </div>
                         <div class="feature-toggle">
                             <div>
-                                <h6><i class="fas fa-volume-up" style="color: #2563eb;"></i> Voice Output</h6>
+                                <h6><i class="fas fa-volume-up" style="color: #0d7a3e;"></i> Voice Output</h6>
                                 <small style="color: #6b7280;">AI speaks responses aloud</small>
                             </div>
                             <label class="switch">
@@ -219,7 +219,7 @@
                         <div class="form-group">
                             <label class="form-label">Button Color</label>
                             <input type="color" class="form-control" name="ai_button_color"
-                                   value="{{ $features->ai_button_color ?? '#1e40af' }}" style="height: 42px;">
+                                   value="{{ $features->ai_button_color ?? '#0d6e38' }}" style="height: 42px;">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Panel Width (px)</label>
@@ -284,7 +284,7 @@
                     <div class="grid grid-2">
                         <div class="feature-toggle">
                             <div>
-                                <h6><i class="fas fa-calendar-alt" style="color: #2563eb;"></i> Event Reminders</h6>
+                                <h6><i class="fas fa-calendar-alt" style="color: #0d7a3e;"></i> Event Reminders</h6>
                                 <small style="color: #6b7280;">Upcoming event notifications</small>
                             </div>
                             <label class="switch">
@@ -363,7 +363,7 @@
     }
     .feature-toggle h6 {
         margin: 0 0 5px 0;
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
 
     .feature-toggle-sm {
@@ -406,7 +406,7 @@
     }
     .channel-card.active {
         background: #dbeafe;
-        border-color: #2563eb;
+        border-color: #0d7a3e;
     }
     .channel-card label {
         cursor: pointer;
@@ -423,7 +423,7 @@
         color: #6b7280;
     }
     .channel-card.active i {
-        color: #2563eb;
+        color: #0d7a3e;
     }
     .channel-card span {
         font-weight: 500;

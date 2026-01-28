@@ -135,7 +135,7 @@ class TwilioSettingsController extends Controller
                 $request->phone,
                 [
                     'from' => $settings['from_number'],
-                    'body' => 'This is a test message from My Voting Software. If you received this, your Twilio integration is working correctly!',
+                    'body' => 'This is a test message from VotigoPro. If you received this, your Twilio integration is working correctly!',
                 ]
             );
 

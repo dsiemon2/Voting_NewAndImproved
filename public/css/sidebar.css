@@ -8,7 +8,7 @@
 /* Base Sidebar */
 .sidebar {
     width: 250px;
-    background-color: #1e40af;
+    background-color: #0d6e38;
     padding: 20px;
     flex-shrink: 0;
     height: calc(100vh - 70px);
@@ -52,7 +52,7 @@
     color: white;
     font-weight: bold;
     padding: 10px 15px;
-    background-color: #1e3a8a;
+    background-color: #064e2b;
     border-radius: 5px;
     margin-bottom: 10px;
     font-size: 14px;
@@ -68,7 +68,7 @@
     color: #ffffff;
     display: block;
     padding: 10px 15px;
-    background-color: #3b82f6;
+    background-color: #2eaa5e;
     border-radius: 5px;
     transition: background-color 0.3s ease;
     font-weight: normal;
@@ -76,11 +76,11 @@
 }
 
 .sidebar__menu-list a:hover {
-    background-color: #1d4ed8;
+    background-color: #0a6632;
 }
 
 .sidebar__menu-list a.active {
-    background-color: #ff6600;
+    background-color: #f39c12;
 }
 
 .sidebar__menu-list a i {
@@ -127,7 +127,7 @@
 .sidebar__event-selector {
     flex: 1;
     background: white;
-    color: #1e3a8a;
+    color: #064e2b;
     padding: 8px 12px;
     border-radius: 5px;
     font-size: 13px;
@@ -142,7 +142,7 @@
 
 .sidebar__event-selector:hover {
     background: #f0f9ff;
-    color: #1e3a8a;
+    color: #064e2b;
 }
 
 .sidebar__event-close {
@@ -165,7 +165,7 @@
 /* Mobile Toggle Button */
 .mobile-toggle {
     display: none;
-    background: #1e3a8a;
+    background: #064e2b;
     color: white;
     border: none;
     padding: 10px 15px;

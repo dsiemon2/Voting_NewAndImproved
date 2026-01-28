@@ -136,7 +136,7 @@ class TrialCodeService
                 'registrationUrl' => $registrationUrl,
             ], function ($message) use ($trialCode) {
                 $message->to($trialCode->requester_email, $trialCode->requester_full_name)
-                    ->subject('Your My Voting Software Trial Code');
+                    ->subject('Your VotigoPro Trial Code');
             });
 
             Log::info('Trial code email sent', ['code' => $trialCode->code, 'email' => $trialCode->requester_email]);
@@ -172,7 +172,7 @@ class TrialCodeService
             $registrationUrl = route('register', ['plan' => 'free', 'code' => $trialCode->code]);
             $shortUrl = $registrationUrl; // Could use a URL shortener here
 
-            $message = "My Voting Software Trial Code: {$trialCode->code}\n\n" .
+            $message = "VotigoPro Trial Code: {$trialCode->code}\n\n" .
                 "Register at: {$shortUrl}\n\n" .
                 "Expires: {$trialCode->expires_at->format('M d, Y')}";
 

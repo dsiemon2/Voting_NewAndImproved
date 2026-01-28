@@ -21,7 +21,7 @@
                 <div class="mode-card {{ $config->assistant_mode === 'ai_only' ? 'selected' : '' }}"
                      data-mode="ai_only" onclick="selectMode('ai_only')">
                     <div style="text-align: center; padding: 20px;">
-                        <i class="fas fa-robot" style="font-size: 3rem; color: #2563eb;"></i>
+                        <i class="fas fa-robot" style="font-size: 3rem; color: #0d7a3e;"></i>
                         <h4 style="margin-top: 15px;">Fully Automated</h4>
                         <p style="color: #6b7280; margin-bottom: 0;">The AI handles all interactions autonomously. Set it and forget it!</p>
                         @if($config->assistant_mode === 'ai_only')
@@ -80,7 +80,7 @@
 
                 <button type="button" class="intensity-btn {{ $config->intensity === 'full' ? 'active' : '' }}"
                         data-intensity="full" onclick="selectIntensity('full')"
-                        style="background: {{ $config->intensity === 'full' ? '#1e3a8a' : '#f3f4f6' }}; color: {{ $config->intensity === 'full' ? 'white' : '#374151' }};">
+                        style="background: {{ $config->intensity === 'full' ? '#1a3a5c' : '#f3f4f6' }}; color: {{ $config->intensity === 'full' ? 'white' : '#374151' }};">
                     <i class="fas fa-robot" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
                     <strong>Full AI</strong>
                     <small style="display: block; color: {{ $config->intensity === 'full' ? 'rgba(255,255,255,0.8)' : '#6b7280' }};">Maximum assist</small>
@@ -91,7 +91,7 @@
 
     <!-- Voice Selection Section -->
     <div class="card mb-4">
-        <div class="card-header" style="background: #2563eb; color: white;">
+        <div class="card-header" style="background: #0d7a3e; color: white;">
             <i class="fas fa-user-circle"></i> Select AI Voice
         </div>
         <div class="card-body">
@@ -220,7 +220,7 @@
         </div>
 
         <div class="stat-card">
-            <div class="stat-icon" style="color: #2563eb;">
+            <div class="stat-icon" style="color: #0d7a3e;">
                 <i class="fas fa-volume-up"></i>
             </div>
             <div class="stat-value" style="font-size: 1.5rem; text-transform: capitalize;">{{ $config->selected_voice }}</div>
@@ -281,7 +281,7 @@
         box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
     .mode-card.selected {
-        border-color: #2563eb;
+        border-color: #0d7a3e;
         box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
     }
 
@@ -316,7 +316,7 @@
         box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
     .voice-card.selected {
-        border-color: #2563eb;
+        border-color: #0d7a3e;
         box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
     }
     .voice-card .play-btn {
@@ -426,7 +426,7 @@
     }
     .modal-header h5 {
         margin: 0;
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
     .modal-close {
         background: none;
@@ -460,7 +460,7 @@
     }
     .toast.success { border-left: 4px solid #10b981; }
     .toast.error { border-left: 4px solid #dc2626; }
-    .toast.info { border-left: 4px solid #2563eb; }
+    .toast.info { border-left: 4px solid #0d7a3e; }
 
     @keyframes slideIn {
         from { transform: translateX(100%); opacity: 0; }

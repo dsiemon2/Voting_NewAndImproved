@@ -99,8 +99,8 @@
                             <label class="form-label">Primary Color</label>
                             <div class="d-flex align-center gap-2">
                                 <input type="color" class="form-control" name="primary_color"
-                                       value="{{ $settings->primary_color ?? '#1e40af' }}" style="width: 60px; height: 42px;">
-                                <input type="text" class="form-control" value="{{ $settings->primary_color ?? '#1e40af' }}"
+                                       value="{{ $settings->primary_color ?? '#0d6e38' }}" style="width: 60px; height: 42px;">
+                                <input type="text" class="form-control" value="{{ $settings->primary_color ?? '#0d6e38' }}"
                                        style="flex: 1;" readonly>
                             </div>
                         </div>
@@ -109,8 +109,8 @@
                             <label class="form-label">Accent Color</label>
                             <div class="d-flex align-center gap-2">
                                 <input type="color" class="form-control" name="accent_color"
-                                       value="{{ $settings->accent_color ?? '#ff6600' }}" style="width: 60px; height: 42px;">
-                                <input type="text" class="form-control" value="{{ $settings->accent_color ?? '#ff6600' }}"
+                                       value="{{ $settings->accent_color ?? '#f39c12' }}" style="width: 60px; height: 42px;">
+                                <input type="text" class="form-control" value="{{ $settings->accent_color ?? '#f39c12' }}"
                                        style="flex: 1;" readonly>
                             </div>
                         </div>
@@ -172,7 +172,7 @@
                 <div class="grid grid-2">
                     <div class="feature-toggle">
                         <div>
-                            <h6><i class="fas fa-envelope-open-text" style="color: #2563eb;"></i> Require Email Verification</h6>
+                            <h6><i class="fas fa-envelope-open-text" style="color: #0d7a3e;"></i> Require Email Verification</h6>
                             <small style="color: #6b7280;">Users must verify email before voting</small>
                         </div>
                         <label class="switch">
@@ -218,7 +218,7 @@
     }
     .feature-toggle h6 {
         margin: 0 0 5px 0;
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
 
     .upload-zone {
@@ -229,7 +229,7 @@
         transition: all 0.2s;
     }
     .upload-zone:hover {
-        border-color: #2563eb;
+        border-color: #0d7a3e;
         background: #f0f9ff;
     }
 

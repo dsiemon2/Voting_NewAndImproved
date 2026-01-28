@@ -28,7 +28,7 @@
         }
         .header .subtitle {
             font-size: 16px;
-            color: #1e40af;
+            color: #0d6e38;
             font-weight: bold;
         }
         .section {
@@ -39,7 +39,7 @@
             color: #2c3e50;
             padding: 10px 15px;
             background: #f0f4ff;
-            border-left: 4px solid #1e40af;
+            border-left: 4px solid #0d6e38;
             margin-bottom: 15px;
         }
         .stats-grid {
@@ -58,7 +58,7 @@
         .stat-box .value {
             font-size: 32px;
             font-weight: bold;
-            color: #1e40af;
+            color: #0d6e38;
             display: block;
         }
         .stat-box .label {
@@ -110,14 +110,14 @@
         }
         .rank {
             font-weight: bold;
-            color: #1e40af;
+            color: #0d6e38;
         }
         .rank-1 { color: #d97706; }
         .rank-2 { color: #6b7280; }
         .rank-3 { color: #b45309; }
         .points {
             font-weight: bold;
-            color: #1e40af;
+            color: #0d6e38;
         }
         .footer {
             margin-top: 30px;

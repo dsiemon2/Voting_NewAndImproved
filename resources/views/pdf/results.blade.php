@@ -28,7 +28,7 @@
         }
         .header .subtitle {
             font-size: 16px;
-            color: #1e40af;
+            color: #0d6e38;
             font-weight: bold;
         }
         .header .date {
@@ -90,7 +90,7 @@
         .points {
             font-weight: bold;
             font-size: 13px;
-            color: #1e40af;
+            color: #0d6e38;
         }
         .place-count {
             display: inline-block;

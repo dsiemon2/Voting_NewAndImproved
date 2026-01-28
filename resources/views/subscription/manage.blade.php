@@ -330,7 +330,7 @@
 }
 
 .upgrade-option:hover {
-    border-color: #2563eb;
+    border-color: #0d7a3e;
     background: #f8fafc;
 }
 
@@ -361,7 +361,7 @@
 .upgrade-price .price {
     font-size: 24px;
     font-weight: 700;
-    color: #1e40af;
+    color: #0d6e38;
 }
 
 .upgrade-price .period {

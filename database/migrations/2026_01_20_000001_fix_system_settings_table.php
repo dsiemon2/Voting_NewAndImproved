@@ -33,7 +33,7 @@ return new class extends Migration
         // Recreate the old system_settings table
         Schema::create('system_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('organization_name')->default('My Voting Software');
+            $table->string('organization_name')->default('VotigoPro');
             $table->string('organization_email')->nullable();
             $table->string('organization_phone')->nullable();
             $table->text('organization_address')->nullable();

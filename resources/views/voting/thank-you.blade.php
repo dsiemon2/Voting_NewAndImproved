@@ -52,7 +52,7 @@
     }
 
     .thank-you-card .event-name {
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -74,7 +74,7 @@
     }
 
     .btn-results {
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
         color: white;
         border: none;
         padding: 15px 30px;
@@ -96,7 +96,7 @@
     }
 
     .btn-vote-again {
-        background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+        background: linear-gradient(135deg, #f39c12 0%, #ff8533 100%);
         color: white;
         border: none;
         padding: 15px 30px;
@@ -242,7 +242,7 @@
 <script>
     // Simple confetti effect
     document.addEventListener('DOMContentLoaded', function() {
-        const colors = ['#ff6600', '#1e3a8a', '#10b981', '#ffd700', '#c0c0c0'];
+        const colors = ['#f39c12', '#1a3a5c', '#10b981', '#ffd700', '#c0c0c0'];
         const container = document.querySelector('.thank-you-card');
 
         for (let i = 0; i < 50; i++) {

@@ -13,7 +13,7 @@
         align-items: center;
         margin-bottom: 25px;
         padding: 20px;
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
         color: white;
         border-radius: 10px;
     }
@@ -76,7 +76,7 @@
 
     .status-item .count {
         font-weight: bold;
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
 
     .status-actions {
@@ -204,7 +204,7 @@
     .points {
         font-weight: bold;
         font-size: 16px;
-        color: #1e40af;
+        color: #0d6e38;
     }
 
     .vote-counts {

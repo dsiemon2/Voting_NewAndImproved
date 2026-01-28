@@ -210,37 +210,37 @@
         <div class="card-header"><i class="fas fa-link"></i> Get API Keys</div>
         <ul style="list-style: none; padding: 0; margin: 0;">
             <li style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                <a href="https://platform.openai.com/api-keys" target="_blank" style="color: #2563eb; text-decoration: none;">
+                <a href="https://platform.openai.com/api-keys" target="_blank" style="color: #0d7a3e; text-decoration: none;">
                     <i class="fas fa-external-link-alt"></i> OpenAI API Keys
                 </a>
             </li>
             <li style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color: #2563eb; text-decoration: none;">
+                <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color: #0d7a3e; text-decoration: none;">
                     <i class="fas fa-external-link-alt"></i> Anthropic API Keys
                 </a>
             </li>
             <li style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: #2563eb; text-decoration: none;">
+                <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: #0d7a3e; text-decoration: none;">
                     <i class="fas fa-external-link-alt"></i> Google AI Studio Keys
                 </a>
             </li>
             <li style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                <a href="https://platform.deepseek.com/api_keys" target="_blank" style="color: #2563eb; text-decoration: none;">
+                <a href="https://platform.deepseek.com/api_keys" target="_blank" style="color: #0d7a3e; text-decoration: none;">
                     <i class="fas fa-external-link-alt"></i> DeepSeek API Keys
                 </a>
             </li>
             <li style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                <a href="https://console.groq.com/keys" target="_blank" style="color: #2563eb; text-decoration: none;">
+                <a href="https://console.groq.com/keys" target="_blank" style="color: #0d7a3e; text-decoration: none;">
                     <i class="fas fa-external-link-alt"></i> Groq API Keys
                 </a>
             </li>
             <li style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                <a href="https://console.mistral.ai/api-keys/" target="_blank" style="color: #2563eb; text-decoration: none;">
+                <a href="https://console.mistral.ai/api-keys/" target="_blank" style="color: #0d7a3e; text-decoration: none;">
                     <i class="fas fa-external-link-alt"></i> Mistral API Keys
                 </a>
             </li>
             <li style="padding: 8px 0;">
-                <a href="https://console.x.ai/" target="_blank" style="color: #2563eb; text-decoration: none;">
+                <a href="https://console.x.ai/" target="_blank" style="color: #0d7a3e; text-decoration: none;">
                     <i class="fas fa-external-link-alt"></i> xAI (Grok) API Keys
                 </a>
             </li>
@@ -337,7 +337,7 @@ input:checked + .toggle-slider:before {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #2563eb;
+    background: #0d7a3e;
     cursor: pointer;
 }
 
@@ -345,7 +345,7 @@ input:checked + .toggle-slider:before {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #2563eb;
+    background: #0d7a3e;
     cursor: pointer;
     border: none;
 }

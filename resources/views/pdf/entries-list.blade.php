@@ -62,7 +62,7 @@
         }
         .entry-number {
             font-weight: bold;
-            color: #1e40af;
+            color: #0d6e38;
             font-size: 13px;
         }
         .entry-name {
@@ -75,11 +75,11 @@
             margin-top: 30px;
             padding: 15px;
             background: #f0f4ff;
-            border: 1px solid #1e40af;
+            border: 1px solid #0d6e38;
         }
         .summary h3 {
             font-size: 14px;
-            color: #1e40af;
+            color: #0d6e38;
             margin-bottom: 10px;
         }
         .summary-grid {

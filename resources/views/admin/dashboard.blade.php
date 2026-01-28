@@ -27,7 +27,7 @@
         </div>
 
         <div class="stat-card">
-            <div class="stat-icon" style="color: #ff6600;">
+            <div class="stat-icon" style="color: #f39c12;">
                 <i class="fas fa-vote-yea"></i>
             </div>
             <div class="stat-value">{{ $upcomingEvents->count() }}</div>
@@ -82,7 +82,7 @@
                 </table>
             @endif
             <div style="padding: 15px; border-top: 1px solid #e5e7eb;">
-                <a href="{{ route('admin.events.index') }}" style="color: #2563eb; text-decoration: none;">
+                <a href="{{ route('admin.events.index') }}" style="color: #0d7a3e; text-decoration: none;">
                     View all events <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -102,7 +102,7 @@
                 </a>
 
                 <a href="{{ route('admin.templates.index') }}" class="stat-card" style="text-decoration: none; color: inherit;">
-                    <div class="stat-icon" style="color: #ff6600;">
+                    <div class="stat-icon" style="color: #f39c12;">
                         <i class="fas fa-file-alt"></i>
                     </div>
                     <div class="stat-label" style="font-weight: bold;">Templates</div>

@@ -359,7 +359,7 @@ class AiSettingsController extends Controller
         $settings = SystemSettings::firstOrCreate(
             ['id' => 1],
             [
-                'organization_name' => 'My Voting Software',
+                'organization_name' => 'VotigoPro',
                 'organization_email' => 'admin@example.com',
                 'timezone' => 'America/New_York',
                 'date_format' => 'M d, Y',

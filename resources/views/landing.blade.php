@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-            --primary-dark: #1e3a8a;
-            --primary-blue: #2563eb;
-            --accent-orange: #ff6600;
-            --accent-orange-dark: #e55c00;
+            --primary-gradient: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
+            --primary-dark: #1a3a5c;
+            --primary-blue: #0d7a3e;
+            --accent-orange: #f39c12;
+            --accent-orange-dark: #d68910;
         }
 
         * {
@@ -326,7 +326,7 @@
 
         .badge-blue {
             background: #dbeafe;
-            color: #1e40af;
+            color: #0a6632;
         }
 
         .badge-green {
@@ -603,7 +603,7 @@
         }
 
         .btn-pricing-primary:hover {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #1a3a5c 0%, #0a6632 100%);
         }
 
         .btn-pricing-outline {
@@ -782,8 +782,7 @@
     <nav class="navbar">
         <div class="container">
             <a href="/" class="navbar-brand">
-                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="VotigoPro Logo">
-                <span>VotigoPro</span>
+                <img src="{{ asset('images/VotigoPro.png') }}" alt="VotigoPro Logo">
             </a>
             <ul class="navbar-nav">
                 <li><a href="#features">Features</a></li>

@@ -208,7 +208,7 @@
 .stat-value {
     font-size: 28px;
     font-weight: bold;
-    color: #1e40af;
+    color: #0d6e38;
 }
 
 .stat-label {
@@ -320,7 +320,7 @@
 
 .points {
     font-weight: bold;
-    color: #1e40af;
+    color: #0d6e38;
 }
 
 .btn {
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: 'Votes',
                 data: @json($votingTrends['votes']),
-                borderColor: '#1e40af',
+                borderColor: '#0d6e38',
                 backgroundColor: 'rgba(30, 64, 175, 0.1)',
                 fill: true,
                 tension: 0.4
@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 data: @json($divisionBreakdown['votes']),
                 backgroundColor: [
-                    '#1e40af',
+                    '#0d6e38',
                     '#d97706',
                     '#059669',
                     '#7c3aed',
@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: 'Votes',
                 data: @json($voterMetrics['hourly_votes']),
-                backgroundColor: '#1e40af'
+                backgroundColor: '#0d6e38'
             }]
         },
         options: {

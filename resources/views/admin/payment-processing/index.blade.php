@@ -347,7 +347,7 @@
 }
 
 .text-primary {
-    color: #2563eb !important;
+    color: #0d7a3e !important;
 }
 
 .text-info {

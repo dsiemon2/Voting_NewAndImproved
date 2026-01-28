@@ -197,14 +197,14 @@
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: #2563eb;
+        background: #0d7a3e;
         cursor: pointer;
     }
     input[type="range"]::-moz-range-thumb {
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: #2563eb;
+        background: #0d7a3e;
         cursor: pointer;
         border: none;
     }

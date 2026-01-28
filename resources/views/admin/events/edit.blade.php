@@ -246,7 +246,7 @@
     .page-title {
         margin: 0 0 5px 0;
         font-size: 24px;
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
 
     .subtitle {
@@ -262,7 +262,7 @@
     }
 
     .card-header {
-        background: #1e3a8a;
+        background: #1a3a5c;
         color: white;
         padding: 15px 20px;
     }
@@ -324,7 +324,7 @@
 
     .form-control:focus {
         outline: none;
-        border-color: #1e40af;
+        border-color: #0d6e38;
         box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
     }
 

@@ -280,7 +280,7 @@
     .weight-badge {
         display: inline-block;
         padding: 4px 10px;
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        background: linear-gradient(135deg, #0d6e38 0%, #2eaa5e 100%);
         color: white;
         border-radius: 20px;
         font-weight: 600;
@@ -309,7 +309,7 @@
 
     .info-card h4 {
         margin: 0 0 10px 0;
-        color: #1e40af;
+        color: #0d6e38;
         font-size: 14px;
     }
 
@@ -404,7 +404,7 @@
         }
 
         .responsive-table tbody tr td[data-label="Name"] strong {
-            color: #1e40af;
+            color: #0d6e38;
         }
 
         .mobile-subtitle {
@@ -530,8 +530,8 @@
     }
 
     .page-link.active {
-        background: #1e40af;
-        border-color: #1e40af;
+        background: #0d6e38;
+        border-color: #0d6e38;
         color: white;
     }
 
@@ -576,7 +576,7 @@
         align-items: center;
         padding: 20px;
         border-bottom: 1px solid #e5e7eb;
-        background: #1e3a8a;
+        background: #1a3a5c;
         color: white;
         border-radius: 8px 8px 0 0;
     }

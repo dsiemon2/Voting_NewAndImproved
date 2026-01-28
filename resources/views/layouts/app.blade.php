@@ -30,12 +30,12 @@
         /* Header Wrapper */
         .top-header-wrapper {
             width: 100%;
-            background-color: #1e3a8a;
+            background-color: #1a3a5c;
         }
 
         /* Header */
         .top-header {
-            background-color: #1e3a8a;
+            background-color: #1a3a5c;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -70,7 +70,7 @@
         }
 
         .top-header .logout-btn {
-            background-color: #ff6600;
+            background-color: #f39c12;
             color: white;
             border: none;
             padding: 8px 15px;
@@ -81,7 +81,7 @@
         }
 
         .top-header .logout-btn:hover {
-            background-color: #e55c00;
+            background-color: #d68910;
         }
 
         /* Container */
@@ -103,10 +103,10 @@
         .page-title {
             font-size: 24px;
             font-weight: bold;
-            color: #1e3a8a;
+            color: #1a3a5c;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #1e3a8a;
+            border-bottom: 2px solid #1a3a5c;
         }
 
         /* Cards */
@@ -121,7 +121,7 @@
         .card-header {
             font-size: 18px;
             font-weight: bold;
-            color: #1e3a8a;
+            color: #1a3a5c;
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px solid #e5e7eb;
@@ -141,12 +141,12 @@
         }
 
         .btn-primary {
-            background-color: #2563eb;
+            background-color: #0d7a3e;
             color: white;
         }
 
         .btn-primary:hover {
-            background-color: #1d4ed8;
+            background-color: #0a6632;
         }
 
         .btn-success {
@@ -159,12 +159,12 @@
         }
 
         .btn-warning {
-            background-color: #ff6600;
+            background-color: #f39c12;
             color: white;
         }
 
         .btn-warning:hover {
-            background-color: #e55c00;
+            background-color: #d68910;
         }
 
         .btn-danger {
@@ -205,7 +205,7 @@
         }
 
         .table th {
-            background-color: #1e3a8a;
+            background-color: #1a3a5c;
             color: white;
             font-weight: bold;
         }
@@ -240,8 +240,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+            border-color: #0d7a3e;
+            box-shadow: 0 0 0 2px rgba(13, 122, 62, 0.2);
         }
 
         select.form-control {
@@ -284,9 +284,9 @@
         }
 
         .alert-info {
-            background-color: #dbeafe;
-            color: #1e40af;
-            border: 1px solid #2563eb;
+            background-color: #d4f0e0;
+            color: #0a6632;
+            border: 1px solid #0d7a3e;
         }
 
         /* Badge */
@@ -314,7 +314,7 @@
         }
 
         .badge-info {
-            background-color: #2563eb;
+            background-color: #0d7a3e;
             color: white;
         }
 
@@ -347,14 +347,14 @@
 
         .stat-card .stat-icon {
             font-size: 40px;
-            color: #2563eb;
+            color: #0d7a3e;
             margin-bottom: 10px;
         }
 
         .stat-card .stat-value {
             font-size: 32px;
             font-weight: bold;
-            color: #1e3a8a;
+            color: #1a3a5c;
         }
 
         .stat-card .stat-label {
@@ -435,7 +435,7 @@
         }
 
         .template-card-header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
             color: white;
             padding: 20px;
             display: flex;
@@ -477,7 +477,7 @@
         .user-avatar {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            background: linear-gradient(135deg, #0d7a3e 0%, #0a6632 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -534,13 +534,13 @@
         }
 
         .action-btn-view {
-            background-color: #dbeafe;
-            color: #2563eb;
+            background-color: #d4f0e0;
+            color: #0d7a3e;
         }
 
         .action-btn-view:hover {
-            background-color: #bfdbfe;
-            color: #1d4ed8;
+            background-color: #b8e6cc;
+            color: #0a6632;
         }
 
         .action-btn-vote {
@@ -570,8 +570,8 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            background: #dbeafe;
-            color: #1e40af;
+            background: #d4f0e0;
+            color: #0a6632;
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 11px;
@@ -640,7 +640,7 @@
 
         /* Event Context Banner */
         .event-context-banner {
-            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
             color: white;
             padding: 12px 15px;
             margin: -20px -20px 15px -20px;
@@ -688,8 +688,7 @@
         <div class="top-header-wrapper">
             <header class="top-header">
                 <div class="logo">
-                    <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="Logo" style="height: 110px;">
-                    <span>VotigoPro</span>
+                    <img src="{{ asset('images/VotigoPro.png') }}" alt="VotigoPro Logo" style="height: 110px;">
                 </div>
                 <div class="user-info">
                     <span><i class="fas fa-user"></i> {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
@@ -785,7 +784,7 @@
         @if($showAiChat)
             @include('components.ai-chat-slider', [
                 'position' => $featureSettings->ai_chat_position ?? 'bottom-right',
-                'buttonColor' => $featureSettings->ai_button_color ?? '#1e40af',
+                'buttonColor' => $featureSettings->ai_button_color ?? '#0d7a3e',
                 'panelWidth' => $featureSettings->ai_panel_width ?? 380,
                 'voiceInput' => $featureSettings->ai_voice_input ?? true,
                 'voiceOutput' => $featureSettings->ai_voice_output ?? true,

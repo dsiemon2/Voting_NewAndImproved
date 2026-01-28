@@ -28,7 +28,7 @@
 
     .event-header {
         text-align: center;
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
         color: white;
         padding: 30px;
         border-radius: 10px;
@@ -124,7 +124,7 @@
 
     .vote-input-group input:focus {
         outline: none;
-        border-color: #ff6600;
+        border-color: #f39c12;
         background: #3f4a5a;
     }
 
@@ -134,7 +134,7 @@
 
     .points-label {
         float: right;
-        background: #ff6600;
+        background: #f39c12;
         color: white;
         padding: 2px 8px;
         border-radius: 4px;
@@ -147,7 +147,7 @@
     }
 
     .submit-btn {
-        background: #1e40af;
+        background: #0d6e38;
         color: white;
         border: none;
         padding: 15px 50px;
@@ -159,12 +159,12 @@
     }
 
     .submit-btn:hover {
-        background: #1e3a8a;
+        background: #1a3a5c;
     }
 
     .results-header {
         margin: 0 0 20px;
-        color: #1e3a8a;
+        color: #1a3a5c;
         font-size: 24px;
         display: flex;
         align-items: center;
@@ -257,7 +257,7 @@
 
     .info-bar {
         background: #dbeafe;
-        color: #1e40af;
+        color: #0d6e38;
         padding: 12px 20px;
         border-radius: 8px;
         margin-bottom: 20px;

@@ -14,7 +14,7 @@
         <div style="font-size: 12px; opacity: 0.8; text-transform: uppercase;">Active Webhooks</div>
         <div style="font-size: 28px; font-weight: bold;">{{ $allWebhooks->where('is_active', true)->count() }}</div>
     </div>
-    <div class="card" style="background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); color: white;">
+    <div class="card" style="background: linear-gradient(135deg, #2eaa5e 0%, #60a5fa 100%); color: white;">
         <div style="font-size: 12px; opacity: 0.8; text-transform: uppercase;">Total Webhooks</div>
         <div style="font-size: 28px; font-weight: bold;">{{ $allWebhooks->count() }}</div>
     </div>

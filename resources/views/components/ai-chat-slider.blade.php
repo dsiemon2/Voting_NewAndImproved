@@ -1,6 +1,6 @@
 @php
     $position = $position ?? 'bottom-right';
-    $buttonColor = $buttonColor ?? '#1e40af';
+    $buttonColor = $buttonColor ?? '#0d6e38';
     $panelWidth = $panelWidth ?? 380;
     $voiceInput = $voiceInput ?? true;
     $voiceOutput = $voiceOutput ?? true;
@@ -230,7 +230,7 @@
     .ai-message-bot .ai-message-avatar {
         width: 32px;
         height: 32px;
-        background: #2563eb;
+        background: #0d7a3e;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -263,7 +263,7 @@
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     .ai-message-user .ai-message-content {
-        background: #2563eb;
+        background: #0d7a3e;
         color: white;
         border-top-left-radius: 12px;
         border-top-right-radius: 4px;
@@ -316,7 +316,7 @@
         flex-wrap: wrap;
     }
     .ai-wizard-options button {
-        background: #1e40af;
+        background: #0d6e38;
         border: none;
         padding: 8px 16px;
         border-radius: 8px;
@@ -326,7 +326,7 @@
         color: white;
     }
     .ai-wizard-options button:hover {
-        background: #1e3a8a;
+        background: #1a3a5c;
     }
     .ai-wizard-options button.cancel-btn {
         background: #f3f4f6;
@@ -355,7 +355,7 @@
     }
     .ai-wizard-progress .progress-bar-fill {
         height: 100%;
-        background: #1e40af;
+        background: #0d6e38;
         transition: width 0.3s ease;
     }
 
@@ -376,7 +376,7 @@
         font-size: 14px;
     }
     .ai-chat-input input:focus {
-        border-color: #2563eb;
+        border-color: #0d7a3e;
         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
     .ai-voice-btn {
@@ -412,8 +412,8 @@
     /* Voice Mode Indicator */
     .ai-voice-indicator {
         padding: 15px;
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        border-top: 1px solid #1e3a8a;
+        background: linear-gradient(135deg, #0d6e38 0%, #2eaa5e 100%);
+        border-top: 1px solid #1a3a5c;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -536,7 +536,7 @@
         align-items: center;
         gap: 8px;
         margin-bottom: 10px;
-        color: #1e40af;
+        color: #0d6e38;
         font-weight: 600;
         font-size: 12px;
     }
@@ -555,7 +555,7 @@
         background: #cbd5e1;
     }
     .ai-step-progress-dot.active {
-        background: #1e40af;
+        background: #0d6e38;
     }
     .ai-step-progress-dot.completed {
         background: #10b981;
@@ -573,7 +573,7 @@
         justify-content: center;
         width: 20px;
         height: 20px;
-        background: #1e40af;
+        background: #0d6e38;
         color: white;
         border-radius: 50%;
         font-size: 11px;
@@ -600,7 +600,7 @@
         margin-top: 10px;
     }
     .ai-stat-item {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        background: linear-gradient(135deg, #0d6e38 0%, #2eaa5e 100%);
         color: white;
         padding: 10px 14px;
         border-radius: 10px;

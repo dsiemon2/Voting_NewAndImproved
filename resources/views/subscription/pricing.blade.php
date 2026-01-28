@@ -275,7 +275,7 @@
 }
 
 .pricing-card.popular {
-    border: 2px solid #ff6600;
+    border: 2px solid #f39c12;
     box-shadow: 0 4px 16px rgba(255, 102, 0, 0.2);
 }
 
@@ -288,7 +288,7 @@
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+    background: linear-gradient(135deg, #f39c12 0%, #ff8533 100%);
     color: white;
     padding: 5px 15px;
     border-radius: 20px;
@@ -330,7 +330,7 @@
 .plan-price .price {
     font-size: 36px;
     font-weight: 800;
-    color: #1e40af;
+    color: #0d6e38;
 }
 
 .plan-price .period {

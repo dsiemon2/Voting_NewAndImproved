@@ -114,7 +114,7 @@
                     <div class="template-grid">
                         @if($event->hasModule('divisions'))
                             <a href="{{ route('admin.events.divisions.index', $event) }}" class="module-link-card">
-                                <div class="module-link-icon" style="background: #dbeafe; color: #2563eb;">
+                                <div class="module-link-icon" style="background: #dbeafe; color: #0d7a3e;">
                                     <i class="fas fa-layer-group"></i>
                                 </div>
                                 <div class="module-link-info">

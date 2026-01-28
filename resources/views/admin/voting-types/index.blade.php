@@ -124,7 +124,7 @@ if (!function_exists('ordinal')) {
     <div class="template-grid">
         <div class="card">
             <div style="padding: 20px;">
-                <h3 style="margin-bottom: 10px; color: #1e3a8a;"><i class="fas fa-medal" style="color: #ff6600;"></i> Standard 3-2-1</h3>
+                <h3 style="margin-bottom: 10px; color: #1a3a5c;"><i class="fas fa-medal" style="color: #f39c12;"></i> Standard 3-2-1</h3>
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">Classic 3 places with 3, 2, 1 points</p>
                 <form action="{{ route('admin.voting-types.preset') }}" method="POST">
                     @csrf
@@ -138,7 +138,7 @@ if (!function_exists('ordinal')) {
 
         <div class="card">
             <div style="padding: 20px;">
-                <h3 style="margin-bottom: 10px; color: #1e3a8a;"><i class="fas fa-trophy" style="color: #ff6600;"></i> Extended 5-4-3-2-1</h3>
+                <h3 style="margin-bottom: 10px; color: #1a3a5c;"><i class="fas fa-trophy" style="color: #f39c12;"></i> Extended 5-4-3-2-1</h3>
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">5 places with descending points</p>
                 <form action="{{ route('admin.voting-types.preset') }}" method="POST">
                     @csrf
@@ -152,7 +152,7 @@ if (!function_exists('ordinal')) {
 
         <div class="card">
             <div style="padding: 20px;">
-                <h3 style="margin-bottom: 10px; color: #1e3a8a;"><i class="fas fa-crown" style="color: #ff6600;"></i> Top-Heavy 5-3-1</h3>
+                <h3 style="margin-bottom: 10px; color: #1a3a5c;"><i class="fas fa-crown" style="color: #f39c12;"></i> Top-Heavy 5-3-1</h3>
                 <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">3 places with emphasis on 1st place</p>
                 <form action="{{ route('admin.voting-types.preset') }}" method="POST">
                     @csrf

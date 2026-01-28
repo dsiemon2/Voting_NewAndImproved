@@ -37,7 +37,7 @@
                     <tr>
                         <td data-label="#"><strong>{{ $categories->firstItem() + $index }}</strong></td>
                         <td data-label="Name">
-                            <strong style="color: #1e40af;">{{ $category->name }}</strong>
+                            <strong style="color: #0d6e38;">{{ $category->name }}</strong>
                             @if($category->description)
                                 <span class="mobile-subtitle">{{ $category->description }}</span>
                             @endif
@@ -261,8 +261,8 @@
     }
 
     .page-link.active {
-        background: #1e40af;
-        border-color: #1e40af;
+        background: #0d6e38;
+        border-color: #0d6e38;
         color: white;
     }
 
@@ -443,7 +443,7 @@
         align-items: center;
         padding: 20px;
         border-bottom: 1px solid #e5e7eb;
-        background: #1e3a8a;
+        background: #1a3a5c;
         color: white;
         border-radius: 8px 8px 0 0;
     }

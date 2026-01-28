@@ -14,10 +14,10 @@
                 <div class="d-flex justify-between align-center">
                     <div class="d-flex align-center gap-2">
                         <div class="tool-icon" style="background: {{ $tool['enabled'] ? '#dbeafe' : '#f3f4f6' }};">
-                            <i class="fas {{ $tool['icon'] }}" style="color: {{ $tool['enabled'] ? '#2563eb' : '#9ca3af' }};"></i>
+                            <i class="fas {{ $tool['icon'] }}" style="color: {{ $tool['enabled'] ? '#0d7a3e' : '#9ca3af' }};"></i>
                         </div>
                         <div>
-                            <h5 style="margin: 0; color: #1e3a8a;">{{ $tool['name'] }}</h5>
+                            <h5 style="margin: 0; color: #1a3a5c;">{{ $tool['name'] }}</h5>
                             <small style="color: #6b7280;">{{ $tool['description'] }}</small>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
         <div class="card-body">
             <div class="grid grid-3">
                 <div class="category-card">
-                    <div class="category-icon" style="background: #dbeafe; color: #2563eb;">
+                    <div class="category-icon" style="background: #dbeafe; color: #0d7a3e;">
                         <i class="fas fa-search"></i>
                     </div>
                     <h6>Query Tools</h6>

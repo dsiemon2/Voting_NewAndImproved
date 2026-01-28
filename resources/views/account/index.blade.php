@@ -348,13 +348,13 @@
 }
 
 .account-tab:hover {
-    color: #1e40af;
+    color: #0d6e38;
     background: #f8fafc;
 }
 
 .account-tab.active {
-    color: #1e40af;
-    border-bottom-color: #1e40af;
+    color: #0d6e38;
+    border-bottom-color: #0d6e38;
 }
 
 .account-tab i {
@@ -404,7 +404,7 @@
 
 .notification-group h4 {
     font-size: 15px;
-    color: #1e40af;
+    color: #0d6e38;
     margin-bottom: 15px;
 }
 
@@ -447,7 +447,7 @@
 }
 
 .device-item.current {
-    border-color: #1e40af;
+    border-color: #0d6e38;
     background: #f0f9ff;
 }
 
@@ -459,7 +459,7 @@
 
 .device-icon {
     font-size: 24px;
-    color: #1e40af;
+    color: #0d6e38;
 }
 
 .device-name {
@@ -478,7 +478,7 @@
 }
 
 .payment-card.default {
-    border-color: #1e40af;
+    border-color: #0d6e38;
     background: #f0f9ff;
 }
 
@@ -525,7 +525,7 @@
 
 .modal-header h4 {
     margin: 0;
-    color: #1e40af;
+    color: #0d6e38;
 }
 
 .modal-close {

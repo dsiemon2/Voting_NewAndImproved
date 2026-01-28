@@ -63,7 +63,7 @@
         }
         .winner-name {
             font-size: 36px;
-            color: #1e40af;
+            color: #0d6e38;
             font-weight: bold;
             margin-bottom: 15px;
             padding: 10px 0;

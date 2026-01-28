@@ -17,7 +17,7 @@
     <!-- Stats -->
     <div class="grid grid-4 mb-4">
         <div class="stat-card">
-            <div class="stat-icon" style="color: #2563eb;">
+            <div class="stat-icon" style="color: #0d7a3e;">
                 <i class="fas fa-file-alt"></i>
             </div>
             <div class="stat-value">{{ count($documents) }}</div>
@@ -59,7 +59,7 @@
                         <i class="fas fa-file-alt"></i>
                     </div>
                     <div>
-                        <h6 style="margin: 0; color: #1e3a8a;">{{ $document['title'] }}</h6>
+                        <h6 style="margin: 0; color: #1a3a5c;">{{ $document['title'] }}</h6>
                         <small style="color: #6b7280;">{{ $document['description'] }}</small>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                     <small>1 document</small>
                 </div>
                 <div class="category-tag">
-                    <i class="fas fa-book-open" style="color: #2563eb;"></i>
+                    <i class="fas fa-book-open" style="color: #0d7a3e;"></i>
                     <span>Documentation</span>
                     <small>1 document</small>
                 </div>
@@ -202,7 +202,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #2563eb;
+        color: #0d7a3e;
         font-size: 1.25rem;
     }
 
@@ -231,7 +231,7 @@
         transition: all 0.2s;
     }
     .upload-zone:hover {
-        border-color: #2563eb;
+        border-color: #0d7a3e;
         background: #f0f9ff;
     }
 
@@ -264,7 +264,7 @@
     }
     .modal-header h5 {
         margin: 0;
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
     .modal-close {
         background: none;

@@ -23,7 +23,7 @@
     }
 
     .page-title i {
-        color: #1e3a8a;
+        color: #1a3a5c;
     }
 
     .breadcrumb {
@@ -32,7 +32,7 @@
     }
 
     .breadcrumb a {
-        color: #1e3a8a;
+        color: #1a3a5c;
         text-decoration: none;
     }
 
@@ -49,7 +49,7 @@
     }
 
     .import-card-header {
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        background: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
         color: white;
         padding: 20px 25px;
     }
@@ -89,9 +89,9 @@
     }
 
     .import-type-tab.active {
-        background: #1e3a8a;
+        background: #1a3a5c;
         color: white;
-        border-color: #1e3a8a;
+        border-color: #1a3a5c;
     }
 
     .import-type-tab i {
@@ -109,12 +109,12 @@
     }
 
     .drop-zone:hover {
-        border-color: #1e3a8a;
+        border-color: #1a3a5c;
         background: #f1f5f9;
     }
 
     .drop-zone.dragover {
-        border-color: #ff6600;
+        border-color: #f39c12;
         background: #fff7ed;
     }
 
@@ -150,7 +150,7 @@
     }
 
     .btn-browse {
-        background: #1e3a8a;
+        background: #1a3a5c;
         color: white;
         border: none;
         padding: 12px 30px;
@@ -161,7 +161,7 @@
     }
 
     .btn-browse:hover {
-        background: #1e40af;
+        background: #0d6e38;
     }
 
     .selected-file {
@@ -262,7 +262,7 @@
     }
 
     .btn-import {
-        background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+        background: linear-gradient(135deg, #f39c12 0%, #ff8533 100%);
         color: white;
         border: none;
         padding: 15px 40px;
@@ -326,7 +326,7 @@
 
     .alert-info {
         background: #dbeafe;
-        color: #1e40af;
+        color: #0d6e38;
         border: 1px solid #93c5fd;
     }
 </style>

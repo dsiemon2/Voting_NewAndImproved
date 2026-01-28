@@ -11,11 +11,11 @@
 
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-            --primary-dark: #1e3a8a;
-            --primary-blue: #2563eb;
-            --accent-orange: #ff6600;
-            --accent-orange-dark: #e55c00;
+            --primary-gradient: linear-gradient(135deg, #1a3a5c 0%, #0d7a3e 100%);
+            --primary-dark: #1a3a5c;
+            --primary-blue: #0d7a3e;
+            --accent-orange: #f39c12;
+            --accent-orange-dark: #d68910;
         }
 
         * {
@@ -189,7 +189,7 @@
         .form-group input:focus {
             outline: none;
             border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 3px rgba(13, 122, 62, 0.1);
         }
 
         .password-wrapper {
@@ -267,7 +267,7 @@
         .btn-login:hover {
             background: var(--accent-orange-dark);
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 102, 0, 0.3);
+            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.3);
         }
 
         .register-link {
@@ -343,8 +343,7 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a href="{{ route('home') }}" class="navbar-brand">
-                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="VotigoPro Logo">
-                <span>VotigoPro</span>
+                <img src="{{ asset('images/VotigoPro.png') }}" alt="VotigoPro Logo">
             </a>
             <a href="{{ route('home') }}" class="back-link">
                 <i class="fas fa-arrow-left"></i> Back to Home
@@ -357,7 +356,7 @@
         <div class="login-wrapper">
             <!-- Left Side - Branding -->
             <div class="branding-section">
-                <img src="{{ asset('images/MyVotingSoftware_DoubleSize.png') }}" alt="VotigoPro Logo">
+                <img src="{{ asset('images/VotigoPro.png') }}" alt="VotigoPro Logo">
                 <h2>Welcome Back!</h2>
                 <p>Sign in to manage your events, run voting sessions, and view results.</p>
 

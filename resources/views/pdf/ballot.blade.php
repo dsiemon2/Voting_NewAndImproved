@@ -35,10 +35,10 @@
         }
         .voting-section h2 {
             font-size: 16px;
-            color: #1e40af;
+            color: #0d6e38;
             padding: 8px 12px;
             background: #f0f4ff;
-            border-left: 4px solid #1e40af;
+            border-left: 4px solid #0d6e38;
             margin-bottom: 15px;
         }
         .voting-box {

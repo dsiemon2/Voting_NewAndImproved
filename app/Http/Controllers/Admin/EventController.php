@@ -24,9 +24,17 @@ class EventController extends Controller
     public function index()
     {
         $events = $this->eventRepository->with(['template', 'votingType', 'state'])->paginate(15);
+        $templates = $this->templateRepository->getActive();
+        $votingTypes = $this->votingTypeRepository->getActive();
+        $states = \App\Models\State::all();
+        $modules = \App\Models\Module::orderBy('is_core', 'desc')->orderBy('name')->get();
 
         return view('admin.events.index', [
             'events' => $events,
+            'templates' => $templates,
+            'votingTypes' => $votingTypes,
+            'states' => $states,
+            'modules' => $modules,
         ]);
     }
 
@@ -83,6 +91,10 @@ class EventController extends Controller
             'created_at' => $event->created_at->toIso8601String(),
         ]);
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Event created successfully!', 'event_id' => $event->id]);
+        }
+
         return redirect()
             ->route('admin.events.show', $event)
             ->with('success', 'Event created successfully!');
@@ -110,6 +122,11 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $event->load(['modules', 'votingConfig']);
+
+        if (request()->ajax()) {
+            return response()->json($event);
+        }
+
         $templates = $this->templateRepository->getActive();
         $votingTypes = $this->votingTypeRepository->getActive();
         $states = \App\Models\State::all();
@@ -154,6 +171,10 @@ class EventController extends Controller
             'updated_by' => auth()->id(),
             'updated_at' => now()->toIso8601String(),
         ]);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Event updated successfully!']);
+        }
 
         return redirect()
             ->route('admin.events.show', $event)

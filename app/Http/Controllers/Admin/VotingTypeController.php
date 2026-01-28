@@ -61,6 +61,10 @@ class VotingTypeController extends Controller
             }
         });
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Voting type created successfully.']);
+        }
+
         return redirect()->route('admin.voting-types.index')
             ->with('success', 'Voting type created successfully.');
     }
@@ -70,6 +74,10 @@ class VotingTypeController extends Controller
         $votingType->load(['placeConfigs' => function ($query) {
             $query->orderBy('place');
         }]);
+
+        if (request()->ajax()) {
+            return response()->json($votingType);
+        }
 
         return view('admin.voting-types.edit', compact('votingType'));
     }
@@ -105,6 +113,10 @@ class VotingTypeController extends Controller
                 ]);
             }
         });
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Voting type updated successfully.']);
+        }
 
         return redirect()->route('admin.voting-types.index')
             ->with('success', 'Voting type updated successfully.');

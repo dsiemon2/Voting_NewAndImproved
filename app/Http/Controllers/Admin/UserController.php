@@ -60,7 +60,11 @@ class UserController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         $validated['is_active'] = $request->has('is_active');
 
-        User::create($validated);
+        $user = User::create($validated);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'User created successfully.']);
+        }
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User created successfully.');
@@ -68,6 +72,10 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        if (request()->ajax()) {
+            return response()->json($user->load('role'));
+        }
+
         $roles = Role::all();
         return view('admin.users.edit', compact('user', 'roles'));
     }
@@ -94,6 +102,10 @@ class UserController extends Controller
         $validated['is_active'] = $request->has('is_active');
 
         $user->update($validated);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'User updated successfully.']);
+        }
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User updated successfully.');

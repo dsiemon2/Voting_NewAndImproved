@@ -16,7 +16,9 @@ class TemplateController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('admin.templates.index', compact('templates'));
+        $modules = Module::orderBy('is_core', 'desc')->orderBy('name')->get();
+
+        return view('admin.templates.index', compact('templates', 'modules'));
     }
 
     public function create()
@@ -49,6 +51,10 @@ class TemplateController extends Controller
 
         $template->modules()->sync($allModules);
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Template created successfully.']);
+        }
+
         return redirect()->route('admin.templates.index')
             ->with('success', 'Template created successfully.');
     }
@@ -56,6 +62,11 @@ class TemplateController extends Controller
     public function edit(EventTemplate $template)
     {
         $template->load('modules');
+
+        if (request()->ajax()) {
+            return response()->json($template);
+        }
+
         $modules = Module::orderBy('is_core', 'desc')->orderBy('name')->get();
         return view('admin.templates.edit', compact('template', 'modules'));
     }
@@ -83,6 +94,10 @@ class TemplateController extends Controller
         $allModules = array_unique(array_merge($coreModules, $selectedModules));
 
         $template->modules()->sync($allModules);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Template updated successfully.']);
+        }
 
         return redirect()->route('admin.templates.index')
             ->with('success', 'Template updated successfully.');
